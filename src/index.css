@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/static/Rubik-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/static/Rubik-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@theme {
+  --font-sans: "Rubik", sans-serif;
+
+  --color-neutral-100: #f7f7f7;
+
+  --color-blue-500: #495DCF;
+  --color-blue-600: #5267DF;
+  --color-blue-800: #2F3B81;
+  --color-blue-950: #242a45;
+  --color-red-400: #fa5959;
+
+  --color-grey-300: #5B6074;
+  --color-grey-500: #9194a2;
+
+  --text-2xs: .75rem;
+  --text-xs: .875rem;
+  --text-sm: .9375rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2rem;
+
+  --radius-sm: 5px;
+  --radius-lg: 15px;
+
+  --shadow-md: 0 8px 8px -4px;
+  --shadow-xl: 0 10px 20px -5px;
+  --shadow-2xl: 0 30px 40px 0;
+}
