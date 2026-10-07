@@ -34,7 +34,7 @@ Users should be able to:
 - Arrow keys move between the feature tabs, and Enter or Space opens one. Every tab keeps the size of the largest illustration, so the page never jumps when switching.
 - The FAQ keeps one answer open at a time, and its arrow turns when an answer opens.
 - The newsletter validates on submit only: an empty or invalid email shows an error that screen readers announce, and editing the field clears it. A valid email resets the form; there is no backend.
-- "Get it on…", "More info", "Add & Install Extension" and Login open a notice explaining that the page is a demo. Navigation, footer and social links are placeholders that scroll back to the top, smoothly unless reduced motion is requested.
+- "Get it on…", "More Info", "Add & Install Extension" and Login open a notice explaining that the page is a demo. Navigation, footer and social links are placeholders that scroll back to the top, smoothly unless reduced motion is requested.
 
 ## My process
 
@@ -52,7 +52,6 @@ Users should be able to:
 - [Tailwind CSS (v4)](https://tailwindcss.com/) - For styles, with the design tokens in `src/index.css`
 - [Base UI](https://base-ui.com/) - Unstyled, accessible components (tabs, accordion, dialog)
 - [shadcn/ui](https://ui.shadcn.com/) - Component primitives in the `base-nova` style, with [class-variance-authority](https://cva.style/) for variants
-- [Playwright](https://playwright.dev/) and [pixelmatch](https://github.com/mapbox/pixelmatch) - Visual comparison of the page with the design frames
 
 ### What I learned
 
@@ -123,10 +122,6 @@ export default function DemoButton({
 
 The mobile menu reuses the same dialog primitive. Its Login button closes the menu first and opens the notice once the closing has finished.
 
-#### Comparing the page with the design
-
-`npm run test:design` builds the site and compares it with PNG exports of the Figma frames: the full pages at 375px and 1440px, the active states, the mobile menu and the feature tabs. Each test attaches the design, the page and a diff image to the Playwright report and fails above a share of differing pixels. The tab frames show only part of the page, so their position is found first with a coarse search on scaled-down images. The frames stay out of the repository, and the tests skip the ones that are missing.
-
 #### Small details
 
 - With Tailwind CSS 4, `outline-none` sets the outline style to `none`, so `focus-visible:outline-2` alone shows nothing. Links get their focus outline from a base rule instead, and buttons use a ring.
@@ -148,7 +143,7 @@ The mobile menu reuses the same dialog primitive. Its Login button closes the me
 I used Claude, through Claude Code, as a pair programmer for the review, the responsive layout and the accessibility polish, while keeping the decisions and the testing on my side.
 
 - **Planning first**: the work started from a review of the existing code and a plan split into phases (interactions and accessibility, responsive layout, refactoring, assets), each closed with small commits I tested locally.
-- **Reviews**: audits of keyboard navigation, focus states, the mobile menu and the newsletter feedback, plus hunts for unused styles and dependencies. Scripted browser runs, kept outside the repository, checked the layout and the interactions at several viewports before and after each change, and the Playwright comparison now measures the gap with the design frames.
+- **Reviews**: audits of keyboard navigation, focus states, the mobile menu and the newsletter feedback, plus hunts for unused styles and dependencies. Scripted browser runs, kept outside the repository, checked the layout and the interactions at several viewports before and after each change.
 - **Context in local files**: an `AGENTS.md` with the working rules for any coding agent, and a list of the points still open for the next review.
 
 ## Author
