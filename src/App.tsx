@@ -9,7 +9,7 @@ import IconSprite from "./components/IconSprite";
 
 export default function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-clip">
       <IconSprite />
       <Header />
 

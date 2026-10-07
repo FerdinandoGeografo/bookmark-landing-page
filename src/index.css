@@ -36,6 +36,11 @@
 }
 
 @layer base {
+  /* Keeps focused elements clear of the sticky header (120px at its tallest). */
+  html {
+    scroll-padding-top: 7.5rem;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
