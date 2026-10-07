@@ -8,6 +8,7 @@ export const FEATURES: Feature[] = [
       src: "/images/illustration-features-tab-1.svg",
       width: 536,
       height: 346,
+      left: 0,
     },
     title: "Bookmark in one click",
     description:
@@ -20,6 +21,7 @@ export const FEATURES: Feature[] = [
       src: "/images/illustration-features-tab-2.svg",
       width: 478,
       height: 416,
+      left: 77,
     },
     title: "Intelligent search",
     description:
@@ -32,6 +34,7 @@ export const FEATURES: Feature[] = [
       src: "/images/illustration-features-tab-3.svg",
       width: 440,
       height: 380,
+      left: 77,
     },
     title: "Share your bookmarks",
     description:

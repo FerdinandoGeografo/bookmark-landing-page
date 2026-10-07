@@ -4,12 +4,10 @@ import DemoButton from "./DemoButton";
 import HeadingBox from "./HeadingBox";
 import ImageDecoration from "./ImageDecoration";
 
-// Every tab reserves the largest illustration, so switching tabs never moves
-// the layout (536px wide in tab 1, 416px tall in tab 2).
-const FRAME = {
-  width: Math.max(...FEATURES.map(({ image }) => image.width)),
-  height: Math.max(...FEATURES.map(({ image }) => image.height)),
-};
+// As in the design frames, every tab keeps the box of the first illustration:
+// the others start at the same top and the taller ones overflow it downwards,
+// so switching tabs never moves the page.
+const FRAME = FEATURES[0].image;
 
 export default function FeaturesSection() {
   return (
@@ -44,22 +42,23 @@ export default function FeaturesSection() {
               hidden={false}
               className="data-hidden:invisible"
             >
-              <div className="flex flex-col items-center gap-17.25 lg:flex-row lg:gap-31.25">
+              <div className="flex flex-col items-center gap-17.25 md:gap-20 lg:flex-row lg:gap-31.25">
                 <ImageDecoration
                   bleed="left"
                   aspectRatio={FRAME.width / FRAME.height}
                   mobile={{ image: 311, top: 34.875, inset: 34.875 }}
                   desktop={{ image: FRAME.width, top: 83, inset: 64.32 }}
-                  className="w-full max-w-134 items-start justify-center lg:max-w-[min(100vw*536/1440,536px)]"
+                  className="min-h-0 w-full max-w-134 items-start lg:max-w-[min(100vw*536/1440,536px)]"
                 >
                   <img
                     src={feature.image.src}
                     width={feature.image.width}
                     height={feature.image.height}
                     alt=""
-                    className="h-auto"
+                    className="h-auto shrink-0"
                     style={{
                       width: `${(feature.image.width / FRAME.width) * 100}%`,
+                      marginLeft: `${(feature.image.left / FRAME.width) * 100}%`,
                     }}
                   />
                 </ImageDecoration>
@@ -72,7 +71,7 @@ export default function FeaturesSection() {
                     {feature.description}
                   </p>
                   <DemoButton className="mt-3.75 px-5.5 md:mt-4">
-                    More info
+                    More Info
                   </DemoButton>
                 </div>
               </div>
