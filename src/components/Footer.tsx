@@ -5,12 +5,12 @@ import SocialLinks from "./SocialLinks";
 export default function Footer() {
   return (
     <footer className="flex bg-blue-950">
-      <div className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 md:flex-row md:gap-16.25 md:px-41.25 md:py-[31.5px]">
+      <div className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-[31.5px]">
         <Logo />
 
         <nav
           aria-label="Footer"
-          className="flex flex-col items-center gap-8 md:flex-row md:gap-11.5"
+          className="flex flex-col items-center gap-8 lg:flex-row lg:gap-11.5"
         >
           {LINKS.map((link) => (
             <a
@@ -23,7 +23,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <SocialLinks className="mt-2.25 md:mt-0 md:ml-auto" />
+        <SocialLinks className="mt-2.25 lg:mt-0 lg:ml-auto" />
       </div>
     </footer>
   );

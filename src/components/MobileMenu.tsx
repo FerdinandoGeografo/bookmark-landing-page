@@ -49,7 +49,7 @@ export default function MobileMenu() {
     >
       <Dialog.Trigger
         aria-label="Open menu"
-        className={cn(iconButtonClassName, "md:hidden")}
+        className={cn(iconButtonClassName, "lg:hidden")}
       >
         <svg aria-hidden="true" className="h-3.75 w-4.5">
           <use href="#menu" />

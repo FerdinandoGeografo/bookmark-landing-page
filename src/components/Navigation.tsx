@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function Navigation() {
   return (
-    <nav aria-label="Main" className="hidden md:flex">
+    <nav aria-label="Main" className="hidden lg:flex">
       <ul className="flex items-center gap-11.5">
         {LINKS.map((link) => (
           <li key={link}>

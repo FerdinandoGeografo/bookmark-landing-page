@@ -27,12 +27,16 @@ export default function FeaturesSection() {
         </TabsList>
         {FEATURES.map((feature) => (
           <TabsContent key={feature.id} value={feature.id}>
-            <div className="flex flex-col items-center gap-17.25 md:flex-row md:gap-31.25">
-              <ImageDecoration className="after:top-[9.3vw] after:right-[9.3vw] md:after:top-[24%] md:after:right-[12%]">
-                <img src={feature.image} alt="" aria-hidden="true" />
+            <div className="flex flex-col items-center gap-17.25 lg:flex-row lg:gap-31.25">
+              <ImageDecoration className="after:top-[9.3vw] after:right-[9.3vw] md:after:top-auto md:after:right-[12%] md:after:-bottom-10 lg:after:top-[24%] lg:after:bottom-auto">
+                <img
+                  src={feature.image}
+                  alt=""
+                  className="lg:max-w-[calc(100vw*536/1440)]"
+                />
               </ImageDecoration>
 
-              <div className="flex flex-col items-center text-center md:max-w-111.25 md:items-start md:gap-4 md:text-left">
+              <div className="flex flex-col items-center text-center md:max-w-111.25 md:gap-4 lg:items-start lg:text-left">
                 <h3 className="text-2xl leading-13 font-medium text-blue-950 md:text-4xl">
                   {feature.title}
                 </h3>

@@ -7,7 +7,7 @@ export default function DownloadSection() {
     <section
       id="download"
       aria-labelledby="download-title"
-      className="mt-19.25 mb-35 flex flex-col items-center gap-10 px-8 md:mt-59.5 md:mb-57.25 md:gap-12"
+      className="mt-19.25 mb-35 flex flex-col items-center gap-10 px-8 lg:mt-59.5 lg:mb-57.25 lg:gap-12"
     >
       <HeadingBox
         titleId="download-title"
@@ -15,7 +15,7 @@ export default function DownloadSection() {
         description="We’ve got more browsers in the pipeline. Please do let us know if you’ve got a favourite you’d like us to prioritize."
       />
 
-      <ul className="flex flex-col gap-10 md:flex-row md:items-start md:[&>*:nth-child(2)]:translate-y-10 md:[&>*:nth-child(3)]:translate-y-20">
+      <ul className="flex flex-col gap-10 lg:flex-row lg:items-start lg:[&>*:nth-child(2)]:translate-y-10 lg:[&>*:nth-child(3)]:translate-y-20">
         {BROWSERS.map((browser) => (
           <li key={browser.name}>
             <BrowserItem browser={browser} />
