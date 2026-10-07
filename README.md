@@ -84,7 +84,7 @@ The results become custom properties on the box (`--pill-width`, `--pill-top`...
 
 #### Tabs that never move the page
 
-The three feature illustrations have different sizes, and the descriptions wrap differently on small screens. All panels stay mounted and share one grid cell, so the section always takes the size of the largest one. Base UI marks the inactive panels as `inert`, which keeps them out of the tab order and away from screen readers:
+The three feature illustrations have different sizes. As in the design frames, every tab keeps the box of the first one: the other illustrations start at the same top and the taller ones overflow it downwards, while the text stays in place. All panels stay mounted and share one grid cell, so the descriptions, which wrap differently on small screens, cannot change the height either. Base UI marks the inactive panels as `inert`, which keeps them out of the tab order and away from screen readers:
 
 ```tsx
 <div className="grid *:col-start-1 *:row-start-1">
