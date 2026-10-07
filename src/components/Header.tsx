@@ -1,4 +1,5 @@
 import Logo from "./Logo";
+import MobileMenu from "./MobileMenu";
 import Navigation from "./Navigation";
 
 export default function Header() {
@@ -13,6 +14,7 @@ export default function Header() {
       </a>
 
       <Navigation />
+      <MobileMenu />
     </header>
   );
 }

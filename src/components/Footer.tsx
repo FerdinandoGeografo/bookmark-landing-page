@@ -1,5 +1,6 @@
 import { LINKS } from "@/constants/links";
 import Logo from "./Logo";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   return (
@@ -22,32 +23,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="mt-2.25 flex items-center gap-10 md:mt-0 md:ml-auto">
-          <a
-            aria-label="Bookmark on Facebook"
-            href="#"
-            className="group rounded-sm transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
-          >
-            <svg
-              aria-hidden="true"
-              className="size-6 text-white transition-colors duration-300 group-hover:text-red-400"
-            >
-              <use href="#facebook" />
-            </svg>
-          </a>
-          <a
-            aria-label="Bookmark on Twitter"
-            href="#"
-            className="group rounded-sm transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
-          >
-            <svg
-              className="h-5 w-6 text-white transition-colors duration-300 group-hover:text-red-400"
-              aria-hidden="true"
-            >
-              <use href="#twitter" />
-            </svg>
-          </a>
-        </div>
+        <SocialLinks className="mt-2.25 md:mt-0 md:ml-auto" />
       </div>
     </footer>
   );
