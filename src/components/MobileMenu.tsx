@@ -60,7 +60,7 @@ export default function MobileMenu() {
           <Dialog.Title className="sr-only">Menu</Dialog.Title>
 
           <div className="flex items-center justify-between">
-            <Logo />
+            <Logo variant="inverted" />
             <Dialog.Close
               aria-label="Close menu"
               className={iconButtonClassName}
@@ -76,7 +76,7 @@ export default function MobileMenu() {
                   <a
                     href="#"
                     onClick={handleLinkClick}
-                    className="block py-5 text-center text-xl leading-6 tracking-[2.3px] uppercase transition-colors duration-300 hover:text-red-400"
+                    className="block pt-5 pb-5.25 text-center text-xl leading-6 tracking-[2.3px] uppercase transition-colors duration-300 hover:text-red-400"
                   >
                     {link}
                   </a>
