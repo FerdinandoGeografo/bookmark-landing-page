@@ -19,10 +19,10 @@ export default function FaqSection() {
         titleId="faq-title"
         title="Frequently Asked Questions"
         description="Here are some of our FAQs. If you have any other questions you’d like answered please feel free to email us."
-        titleClassName="leading-7.5 tracking-wide"
+        titleClassName="leading-7.5 tracking-wide md:leading-13"
       />
 
-      <Accordion className="mt-4 md:mt-0.5 md:max-w-135">
+      <Accordion className="mt-4 md:-mt-5 md:max-w-135">
         {QUESTIONS.map(({ id, question, answer }) => (
           <AccordionItem key={id} value={id}>
             <AccordionTrigger>{question}</AccordionTrigger>
