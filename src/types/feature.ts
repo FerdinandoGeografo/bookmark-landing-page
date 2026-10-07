@@ -1,7 +1,7 @@
 export type Feature = {
   id: string;
   label: string;
-  image: string;
+  image: { src: string; width: number; height: number };
   title: string;
   description: string;
 };
