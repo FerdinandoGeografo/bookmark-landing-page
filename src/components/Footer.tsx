@@ -7,12 +7,15 @@ export default function Footer() {
       <div className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 md:flex-row md:gap-16.25 md:px-41.25 md:py-[31.5px]">
         <Logo />
 
-        <nav className="flex flex-col items-center gap-8 md:flex-row md:gap-11.5">
+        <nav
+          aria-label="Footer"
+          className="flex flex-col items-center gap-8 md:flex-row md:gap-11.5"
+        >
           {LINKS.map((link) => (
             <a
               key={link}
               href="#"
-              className="text-xs leading-4.25 tracking-widest text-white uppercase transition-colors duration-300 hover:text-red-400"
+              className="rounded-sm text-xs leading-4.25 tracking-widest text-white uppercase transition-colors duration-300 hover:text-red-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400"
             >
               {link}
             </a>
@@ -21,9 +24,9 @@ export default function Footer() {
 
         <div className="mt-2.25 flex items-center gap-10 md:mt-0 md:ml-auto">
           <a
-            aria-label="Visit us on Facebook!"
+            aria-label="Bookmark on Facebook"
             href="#"
-            className="group transition-all duration-300 outline-none focus-visible:ring-1 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-950"
+            className="group rounded-sm transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
           >
             <svg
               aria-hidden="true"
@@ -33,9 +36,9 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            aria-label="Visit us on Twitter"
+            aria-label="Bookmark on Twitter"
             href="#"
-            className="group transition-all duration-300 outline-none focus-visible:ring-1 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-950"
+            className="group rounded-sm transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
           >
             <svg
               className="h-5 w-6 text-white transition-colors duration-300 group-hover:text-red-400"

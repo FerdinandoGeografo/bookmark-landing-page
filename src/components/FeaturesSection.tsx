@@ -6,8 +6,13 @@ import ImageDecoration from "./ImageDecoration";
 
 export default function FeaturesSection() {
   return (
-    <section className="mt-35 flex flex-col items-center gap-10 px-8 md:mt-45 md:gap-10.25">
+    <section
+      id="features"
+      aria-labelledby="features-title"
+      className="mt-35 flex flex-col items-center gap-10 px-8 md:mt-45 md:gap-10.25"
+    >
       <HeadingBox
+        titleId="features-title"
         title="Features"
         description="Our aim is to make it quick and easy for you to access your favourite websites. Your bookmarks sync between your devices so you can access them on the go."
       />

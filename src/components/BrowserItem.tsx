@@ -25,7 +25,10 @@ export default function BrowserItem({ browser }: BrowserItemProps) {
           <use href="#dots" />
         </svg>
 
-        <Button className="mx-6.5">Add & Install Extension</Button>
+        <Button className="mx-6.5">
+          Add & Install Extension
+          <span className="sr-only"> for {name}</span>
+        </Button>
       </div>
     </div>
   );

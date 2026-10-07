@@ -4,7 +4,13 @@ interface LogoProps {
 
 export default function Logo({ variant = "light" }: LogoProps) {
   return (
-    <svg width="148" height="25" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="148"
+      height="25"
+      className="block shrink-0"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g fill="none" fillRule="evenodd">
         <path
           className={`${variant === "light" ? "fill-white" : "fill-blue-950"}`}
