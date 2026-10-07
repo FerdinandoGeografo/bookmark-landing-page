@@ -44,7 +44,7 @@ function AccordionTrigger({
         {children}
         <Icon
           name="arrow"
-          className="mt-2.5 h-3 w-4.5 shrink-0 group-aria-expanded:rotate-180"
+          className="mt-1.75 h-3 w-4.5 shrink-0 text-blue-600 group-aria-expanded:rotate-180 group-aria-expanded:text-red-400 md:mt-2 md:mr-5.75"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

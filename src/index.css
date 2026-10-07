@@ -20,9 +20,9 @@
 }
 
 @layer base {
-  /* Keeps focused elements clear of the sticky header (120px at its tallest). */
+  /* Keeps focused elements clear of the sticky header (136px at its tallest). */
   html {
-    scroll-padding-top: 7.5rem;
+    scroll-padding-top: 8.5rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {

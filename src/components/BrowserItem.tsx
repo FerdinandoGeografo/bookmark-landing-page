@@ -13,7 +13,7 @@ export default function BrowserItem({ browser }: BrowserItemProps) {
     <div className="flex w-70 flex-col items-center gap-8 rounded-lg bg-white pt-12.25 pb-6 shadow-xl shadow-blue-500/20">
       <img src={logo} alt="" />
       <div className="inline-flex flex-col items-center gap-1.5">
-        <h3 className="text-xl leading-6 font-medium tracking-wide text-blue-950">
+        <h3 className="text-xl leading-6 font-medium tracking-[.25px] text-blue-950">
           Add to {name}
         </h3>
         <p className="text-sm leading-7 text-blue-950/50">

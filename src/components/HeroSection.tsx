@@ -3,7 +3,7 @@ import ImageDecoration from "./ImageDecoration";
 
 export default function HeroSection() {
   return (
-    <section className="mt-10 flex flex-col gap-23.5 px-8 lg:flex-row lg:items-end lg:justify-center lg:gap-16.25 lg:pr-[min(100%*91/1440,91px)] lg:pl-[min(100%*165/1440,165px)]">
+    <section className="mt-10 flex flex-col gap-24 px-8 lg:mt-16.75 lg:flex-row lg:items-end lg:justify-center lg:gap-16.25 lg:pr-[min(100%*91/1440,91px)] lg:pl-[min(100%*165/1440,165px)]">
       <ImageDecoration
         bleed="right"
         aspectRatio={578 / 385}
@@ -19,7 +19,7 @@ export default function HeroSection() {
       </ImageDecoration>
 
       <div className="flex flex-col gap-4 text-center md:max-w-135 md:gap-6 md:max-lg:self-center lg:pb-5.75 lg:text-left">
-        <h1 className="text-3xl leading-10 font-medium tracking-tight text-blue-950 capitalize md:text-5xl md:leading-13">
+        <h1 className="text-3xl leading-10 font-medium text-blue-950 capitalize md:text-5xl md:leading-13">
           A simple bookmark manager
         </h1>
         <p className="text-sm leading-6.25 text-blue-950/50 md:text-lg md:leading-7">

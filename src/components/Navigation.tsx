@@ -9,7 +9,7 @@ export default function Navigation() {
           <li key={link}>
             <a
               href="#"
-              className="text-xs leading-4.25 tracking-widest text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
+              className="text-[13px] leading-4.25 tracking-[.125em] text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>
@@ -19,7 +19,7 @@ export default function Navigation() {
           <DemoButton
             variant="accent"
             size="sm"
-            className="leading-4.25 tracking-widest uppercase"
+            className="text-[13px] leading-4.25 tracking-[.125em] uppercase"
           >
             Login
           </DemoButton>

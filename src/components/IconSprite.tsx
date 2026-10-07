@@ -23,7 +23,7 @@ export default function IconSprite() {
       <symbol id="arrow" width="18" height="12" viewBox="0 0 18 12">
         <path
           fill="none"
-          stroke="var(--color-blue-600)"
+          stroke="currentColor"
           strokeWidth="3"
           d="M1 1l8 8 8-8"
         />

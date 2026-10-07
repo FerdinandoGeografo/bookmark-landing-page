@@ -18,7 +18,7 @@ export default function HeadingBox({
       <h2
         id={titleId}
         className={cn(
-          "text-2xl leading-13 font-medium tracking-tight text-blue-950 md:text-4xl",
+          "text-2xl leading-13 font-medium text-blue-950 md:text-4xl",
           titleClassName,
         )}
       >

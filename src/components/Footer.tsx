@@ -16,13 +16,13 @@ export default function Footer() {
 
         <nav
           aria-label="Footer"
-          className="flex flex-col items-center gap-8 lg:flex-row lg:gap-11.5"
+          className="flex flex-col items-center gap-8 lg:flex-row lg:gap-11"
         >
           {LINKS.map((link) => (
             <a
               key={link}
               href="#"
-              className="text-xs leading-4.25 tracking-widest text-white uppercase transition-colors duration-300 hover:text-red-400"
+              className="text-[15px] leading-4.25 tracking-[.12em] text-white uppercase transition-colors duration-300 hover:text-red-400 lg:text-[13px] lg:tracking-[.125em]"
             >
               {link}
             </a>

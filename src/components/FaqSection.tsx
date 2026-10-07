@@ -19,10 +19,10 @@ export default function FaqSection() {
         titleId="faq-title"
         title="Frequently Asked Questions"
         description="Here are some of our FAQs. If you have any other questions you’d like answered please feel free to email us."
-        titleClassName="leading-7.5 tracking-wide md:leading-13"
+        titleClassName="mb-4.25 leading-7.5 md:mb-0 md:leading-13"
       />
 
-      <Accordion className="mt-4 md:-mt-5 md:max-w-135">
+      <Accordion className="-mt-1 md:mt-0.5 md:max-w-135">
         {QUESTIONS.map(({ id, question, answer }) => (
           <AccordionItem key={id} value={id}>
             <AccordionTrigger>{question}</AccordionTrigger>
@@ -33,7 +33,7 @@ export default function FaqSection() {
         ))}
       </Accordion>
 
-      <DemoButton className="px-5.5">More info</DemoButton>
+      <DemoButton className="mt-0.5 px-5.5 md:mt-1.5">More Info</DemoButton>
     </section>
   );
 }
