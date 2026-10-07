@@ -1,11 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 
+/* Latin subsets of Rubik (the only weights in use), compressed as woff2. */
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
+  src: url("/fonts/Rubik/Rubik-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -13,24 +13,8 @@
 
 @font-face {
   font-family: "Rubik";
-  src: url("/fonts/Rubik/static/Rubik-Medium.ttf") format("truetype");
+  src: url("/fonts/Rubik/Rubik-Medium.woff2") format("woff2");
   font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/static/Rubik-Bold.ttf") format("truetype");
-  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
