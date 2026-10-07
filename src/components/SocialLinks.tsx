@@ -9,11 +9,11 @@ export default function SocialLinks({ className }: SocialLinksProps) {
   return (
     <ul className={cn("flex items-center gap-10", className)}>
       {SOCIALS.map(({ name, icon, iconClassName }) => (
-        <li key={name} className="flex">
+        <li key={name}>
           <a
             aria-label={`Bookmark on ${name}`}
             href="#"
-            className="group flex rounded-sm transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
+            className="group flex outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
           >
             <svg
               aria-hidden="true"

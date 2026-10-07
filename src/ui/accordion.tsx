@@ -1,7 +1,7 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 
 import { cn } from "@/lib/utils";
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
@@ -36,19 +36,15 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border-0 pt-4.75 pb-3 text-left text-sm leading-8 text-blue-950 transition-all duration-300 outline-none hover:text-red-400 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:mt-1.75 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-blue-600 md:pb-3.25 md:text-lg",
+          "group flex flex-1 items-start justify-between rounded-lg pt-4.75 pb-3 text-left text-sm leading-8 text-blue-950 transition-all duration-300 outline-none hover:text-red-400 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:pb-3.25 md:text-lg",
           className,
         )}
         {...props}
       >
         {children}
         <ChevronDownIcon
-          data-slot="accordion-trigger-icon"
-          className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-        />
-        <ChevronUpIcon
-          data-slot="accordion-trigger-icon"
-          className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+          aria-hidden="true"
+          className="mt-1.75 size-4 shrink-0 text-blue-600 group-aria-expanded:rotate-180"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -68,7 +64,7 @@ function AccordionContent({
     >
       <div
         className={cn(
-          "h-(--accordion-panel-height) pt-3.5 pb-7 text-blue-950/75 data-ending-style:h-0 data-starting-style:h-0 md:pt-4.75 md:pb-7.25",
+          "pt-3.5 pb-7 text-blue-950/75 md:pt-4.75 md:pb-7.25",
           className,
         )}
       >

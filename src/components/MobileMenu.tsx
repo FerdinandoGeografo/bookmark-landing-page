@@ -9,9 +9,6 @@ import SocialLinks from "./SocialLinks";
 const iconButtonClassName =
   "-m-3 flex rounded-sm p-3 outline-none focus-visible:ring-2 focus-visible:ring-red-400";
 
-const linkFocusClassName =
-  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400";
-
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const scrollToTopRef = useRef(false);
@@ -82,10 +79,7 @@ export default function MobileMenu() {
                   <a
                     href="#"
                     onClick={handleLinkClick}
-                    className={cn(
-                      "block rounded-sm py-5 text-center text-xl leading-6 tracking-[2.3px] uppercase transition-colors duration-300 hover:text-red-400",
-                      linkFocusClassName,
-                    )}
+                    className="block py-5 text-center text-xl leading-6 tracking-[2.3px] uppercase transition-colors duration-300 hover:text-red-400"
                   >
                     {link}
                   </a>
@@ -95,10 +89,7 @@ export default function MobileMenu() {
             <a
               href="#"
               onClick={handleLinkClick}
-              className={cn(
-                "flex h-12 items-center justify-center rounded-sm border-2 border-white text-xl tracking-[2.3px] uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950",
-                linkFocusClassName,
-              )}
+              className="flex h-12 items-center justify-center rounded-sm border-2 border-white text-xl tracking-[2.3px] uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950"
             >
               Login
             </a>

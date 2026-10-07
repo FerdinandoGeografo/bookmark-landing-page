@@ -16,7 +16,7 @@ export default function Footer() {
             <a
               key={link}
               href="#"
-              className="rounded-sm text-xs leading-4.25 tracking-widest text-white uppercase transition-colors duration-300 hover:text-red-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400"
+              className="text-xs leading-4.25 tracking-widest text-white uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>

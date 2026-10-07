@@ -82,10 +82,7 @@ export default function NewsletterSection() {
               aria-invalid={hasError || undefined}
               aria-describedby={feedback ? "email-feedback" : undefined}
               onChange={handleChange}
-              className={cn(
-                "text-blue-950",
-                hasError && "rounded-b-none pr-12",
-              )}
+              className={cn(hasError && "rounded-b-none pr-12")}
             />
             {hasError && (
               <svg
