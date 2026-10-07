@@ -7,13 +7,10 @@ This is a solution to the [Bookmark landing page challenge on Frontend Mentor](h
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   - [Beyond the brief](#beyond-the-brief)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
 - [Built with](#built-with)
 - [Getting started](#getting-started)
 - [Project structure](#project-structure)
 - [Implementation notes](#implementation-notes)
-- [Author](#author)
 
 ## Overview
 
@@ -35,14 +32,6 @@ Users should be able to:
 - Sticky header that never hides the focused element
 - Newsletter feedback announced to screen readers, without reloading the page
 - Smooth scroll to the top for placeholder links, disabled when reduced motion is requested
-
-### Screenshot
-
-![Desktop layout at 1440px](./screenshot.jpg)
-
-### Links
-
-- Repository: [github.com/FerdinandoGeografo/bookmark-landing-page](https://github.com/FerdinandoGeografo/bookmark-landing-page)
 
 ## Built with
 
@@ -87,7 +76,3 @@ public/        images, favicon and the Rubik woff2 fonts
 - **Fonts.** Rubik 400 and 500 are served as latin-subset woff2 files (about 20 KB each) and preloaded.
 - **Newsletter.** Validation runs in the browser only; there is no backend.
 - **Links.** Navigation and footer links are placeholders (`#`) that scroll back to the top.
-
-## Author
-
-- GitHub - [@FerdinandoGeografo](https://github.com/FerdinandoGeografo)
