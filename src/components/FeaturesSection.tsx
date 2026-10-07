@@ -17,16 +17,16 @@ export default function FeaturesSection() {
         description="Our aim is to make it quick and easy for you to access your favourite websites. Your bookmarks sync between your devices so you can access them on the go."
       />
 
-      <Tabs>
+      <Tabs defaultValue={FEATURES[0].id}>
         <TabsList>
           {FEATURES.map((feature) => (
-            <TabsTrigger key={feature.label} value={feature.label}>
+            <TabsTrigger key={feature.id} value={feature.id}>
               {feature.label}
             </TabsTrigger>
           ))}
         </TabsList>
         {FEATURES.map((feature) => (
-          <TabsContent key={feature.title} value={feature.label}>
+          <TabsContent key={feature.id} value={feature.id}>
             <div className="flex flex-col items-center gap-17.25 md:flex-row md:gap-31.25">
               <ImageDecoration className="after:top-[9.3vw] after:right-[9.3vw] md:after:top-[24%] md:after:right-[12%]">
                 <img src={feature.image} alt="" aria-hidden="true" />
