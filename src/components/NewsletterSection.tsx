@@ -40,18 +40,20 @@ export default function NewsletterSection() {
   }
 
   return (
+    // As in the design, the section keeps its 360px height when the error
+    // message appears: the message takes room from the bottom padding.
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="flex flex-col gap-8 bg-blue-600 px-8 py-15 text-center text-white md:items-center md:gap-9 md:pt-14.5 md:pb-18.5"
+      className="flex min-h-90 flex-col gap-8 bg-blue-600 px-8 pt-15 pb-8 text-center text-white md:items-center md:gap-9 md:pt-14.5"
     >
       <div className="flex flex-col md:max-w-110.5 md:gap-6">
-        <p className="text-2xs leading-10 font-medium tracking-[5px] md:text-[13px]">
+        <p className="text-2xs leading-10 font-medium tracking-[4.6px] md:text-[13px] md:tracking-[5px]">
           35,000+ ALREADY JOINED
         </p>
         <h2
           id="contact-title"
-          className="text-2xl leading-7 font-medium tracking-tight md:text-4xl md:leading-10"
+          className="text-2xl leading-7 font-medium md:text-4xl md:leading-10"
         >
           Stay up-to-date with what we’re doing
         </h2>
@@ -90,7 +92,7 @@ export default function NewsletterSection() {
             aria-live="polite"
             className={cn(
               error &&
-                "rounded-b-sm bg-red-400 px-2.5 py-1.5 text-left text-[10px] leading-4 tracking-[.25px] italic",
+                "rounded-b-sm bg-red-400 px-2.5 pt-1 pb-px text-left text-[10px] leading-4 font-medium tracking-[.25px] italic",
             )}
           >
             {error}
