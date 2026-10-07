@@ -41,7 +41,7 @@ Users should be able to:
 - [Tailwind CSS 4](https://tailwindcss.com/) with design tokens in `src/index.css`
 - [Base UI](https://base-ui.com/) primitives (tabs, accordion, dialog, button, input), wrapped in `src/ui` following the [shadcn/ui](https://ui.shadcn.com/) `base-nova` conventions
 - [class-variance-authority](https://cva.style/), `clsx` and `tailwind-merge` for component variants
-- An inline SVG sprite for the design icons, plus one [Lucide](https://lucide.dev/) chevron
+- An inline SVG sprite with the icons provided by the challenge
 - ESLint and Prettier (with the Tailwind CSS plugin)
 
 ## Getting started
