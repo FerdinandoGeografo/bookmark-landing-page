@@ -24,17 +24,24 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
   );
 }
 
-function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+function TabsTrigger({
+  className,
+  children,
+  ...props
+}: TabsPrimitive.Tab.Props) {
   return (
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "relative flex flex-1 items-center justify-center py-5 text-base leading-4.25 tracking-wide text-blue-950/75 transition-all duration-300 outline-none hover:text-red-400 focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-inset data-active:text-blue-950 md:py-7.75",
-        "after:absolute after:bottom-0 after:h-1 after:w-35.75 after:scale-x-0 after:bg-red-400 after:transition-all after:duration-300 data-active:after:scale-x-100 md:after:w-full",
+        "group flex flex-1 justify-center text-center text-base leading-4.25 tracking-wide text-blue-950/75 transition-colors duration-300 outline-none hover:text-red-400 focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-inset data-active:text-blue-950",
         className,
       )}
       {...props}
-    />
+    >
+      <span className="relative py-5 after:absolute after:inset-x-2.25 after:bottom-0 after:h-1 after:scale-x-0 after:bg-red-400 after:transition-transform after:duration-300 group-data-active:after:scale-x-100 md:w-full md:py-7.75 md:after:inset-x-0">
+        {children}
+      </span>
+    </TabsPrimitive.Tab>
   );
 }
 
