@@ -1,12 +1,10 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import Icon from "./Icon";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-type Feedback = { type: "error" | "success"; message: string } | null;
 
 function getEmailError(value: string) {
   const email = value.trim();
@@ -17,33 +15,28 @@ function getEmailError(value: string) {
 }
 
 export default function NewsletterSection() {
-  const [feedback, setFeedback] = useState<Feedback>(null);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const hasError = feedback?.type === "error";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const error = getEmailError(String(new FormData(form).get("email") ?? ""));
+    const submitError = getEmailError(
+      String(new FormData(form).get("email") ?? ""),
+    );
 
-    if (error) {
-      setFeedback({ type: "error", message: error });
+    setError(submitError);
+    if (submitError) {
       inputRef.current?.focus();
       return;
     }
 
-    setFeedback({
-      type: "success",
-      message: "Thanks for joining! We’ll keep you posted.",
-    });
     form.reset();
   }
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    if (!feedback) return;
-
-    const error = getEmailError(event.target.value);
-    setFeedback(hasError && error ? { type: "error", message: error } : null);
+  // Validation runs on submit only: typing again just clears the error.
+  function handleChange() {
+    if (error) setError(null);
   }
 
   return (
@@ -80,12 +73,12 @@ export default function NewsletterSection() {
               type="email"
               autoComplete="email"
               placeholder="Enter your email address"
-              aria-invalid={hasError || undefined}
-              aria-describedby={feedback ? "email-feedback" : undefined}
+              aria-invalid={error ? true : undefined}
+              aria-describedby={error ? "email-error" : undefined}
               onChange={handleChange}
-              className={cn(hasError && "rounded-b-none pr-12")}
+              className={cn(error && "rounded-b-none pr-12")}
             />
-            {hasError && (
+            {error && (
               <Icon
                 name="error"
                 className="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2"
@@ -93,16 +86,14 @@ export default function NewsletterSection() {
             )}
           </div>
           <p
-            id="email-feedback"
+            id="email-error"
             aria-live="polite"
             className={cn(
-              "text-left",
-              hasError &&
-                "rounded-b-sm bg-red-400 px-2.5 py-1.5 text-[10px] leading-4 tracking-[.25px] italic",
-              feedback?.type === "success" && "pt-2 text-xs leading-5",
+              error &&
+                "rounded-b-sm bg-red-400 px-2.5 py-1.5 text-left text-[10px] leading-4 tracking-[.25px] italic",
             )}
           >
-            {feedback?.message}
+            {error}
           </p>
         </div>
         <Button variant="accent" type="submit">
