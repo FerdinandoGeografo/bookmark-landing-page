@@ -6,6 +6,7 @@ import FaqSection from "./components/FaqSection";
 import NewsletterSection from "./components/NewsletterSection";
 import Footer from "./components/Footer";
 import IconSprite from "./components/IconSprite";
+import DemoDialog from "./components/DemoDialog";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <DemoDialog />
     </div>
   );
 }

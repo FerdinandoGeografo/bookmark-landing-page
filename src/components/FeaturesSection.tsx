@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
-import { Button } from "@/ui/button";
 import { FEATURES } from "@/constants/features";
+import DemoButton from "./DemoButton";
 import HeadingBox from "./HeadingBox";
 import ImageDecoration from "./ImageDecoration";
 
@@ -71,7 +71,9 @@ export default function FeaturesSection() {
                   <p className="text-sm leading-6.25 text-blue-950/50 md:text-lg md:leading-7">
                     {feature.description}
                   </p>
-                  <Button className="mt-3.75 px-5.5 md:mt-4">More info</Button>
+                  <DemoButton className="mt-3.75 px-5.5 md:mt-4">
+                    More info
+                  </DemoButton>
                 </div>
               </div>
             </TabsContent>

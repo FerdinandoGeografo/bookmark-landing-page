@@ -1,4 +1,4 @@
-import { Button } from "@/ui/button";
+import DemoButton from "./DemoButton";
 import ImageDecoration from "./ImageDecoration";
 
 export default function HeroSection() {
@@ -27,8 +27,8 @@ export default function HeroSection() {
           a new browser tab and see your sites load instantly. Try it for free.
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-3.5 *:flex-1 lg:mt-2 lg:*:flex-initial">
-          <Button>Get it on Chrome</Button>
-          <Button variant="secondary">Get it on Firefox</Button>
+          <DemoButton>Get it on Chrome</DemoButton>
+          <DemoButton variant="secondary">Get it on Firefox</DemoButton>
         </div>
       </div>
     </section>

@@ -1,8 +1,16 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { Dialog } from "@base-ui/react/dialog";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { LINKS } from "@/constants/links";
+import { demoDialog } from "@/lib/demo-dialog";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogClose,
+  DialogPopup,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@/ui/dialog";
 import Icon from "./Icon";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
@@ -12,7 +20,9 @@ const iconButtonClassName =
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const scrollToTopRef = useRef(false);
+  // Action to run once the menu has finished closing.
+  const afterCloseRef = useRef<(() => void) | null>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Close the menu when the viewport grows into the desktop layout.
   useEffect(() => {
@@ -27,46 +37,60 @@ export default function MobileMenu() {
     return () => query.removeEventListener("change", handleChange);
   }, [open]);
 
+  function closeThen(action: () => void) {
+    afterCloseRef.current = action;
+    setOpen(false);
+  }
+
   // Links are placeholders that lead back to the top. Scroll only once the
   // dialog has closed, so the scroll lock does not swallow the movement.
   function handleLinkClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
-    scrollToTopRef.current = true;
-    setOpen(false);
+    closeThen(() => window.scrollTo({ top: 0 }));
+  }
+
+  // Login has no destination: swap the menu for the demo notice. Focusing the
+  // menu button first gives the notice a place to return focus to.
+  function handleLoginClick() {
+    closeThen(() => {
+      triggerRef.current?.focus();
+      demoDialog.open(null);
+    });
   }
 
   function handleOpenChangeComplete(isOpen: boolean) {
-    if (isOpen || !scrollToTopRef.current) return;
+    if (isOpen) return;
 
-    scrollToTopRef.current = false;
-    window.scrollTo({ top: 0 });
+    afterCloseRef.current?.();
+    afterCloseRef.current = null;
   }
 
   return (
-    <Dialog.Root
+    <Dialog
       open={open}
       onOpenChange={setOpen}
       onOpenChangeComplete={handleOpenChangeComplete}
     >
-      <Dialog.Trigger
+      <DialogTrigger
+        ref={triggerRef}
         aria-label="Open menu"
         className={cn(iconButtonClassName, "lg:hidden")}
       >
         <Icon name="menu" className="h-3.75 w-4.5" />
-      </Dialog.Trigger>
+      </DialogTrigger>
 
-      <Dialog.Portal>
-        <Dialog.Popup className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-blue-950/95 px-8 pt-10 pb-12 text-white outline-none">
-          <Dialog.Title className="sr-only">Menu</Dialog.Title>
+      <DialogPortal>
+        <DialogPopup className="fixed inset-0 flex flex-col overflow-y-auto bg-blue-950/95 px-8 pt-10 pb-12 text-white">
+          <DialogTitle className="sr-only">Menu</DialogTitle>
 
           <div className="flex items-center justify-between">
             <Logo variant="inverted" />
-            <Dialog.Close
+            <DialogClose
               aria-label="Close menu"
               className={iconButtonClassName}
             >
               <Icon name="close" className="h-3.75 w-4" />
-            </Dialog.Close>
+            </DialogClose>
           </div>
 
           <nav aria-label="Main" className="mt-10 flex flex-col gap-6">
@@ -83,18 +107,18 @@ export default function MobileMenu() {
                 </li>
               ))}
             </ul>
-            <a
-              href="#"
-              onClick={handleLinkClick}
+            <button
+              type="button"
+              onClick={handleLoginClick}
               className="flex h-12 items-center justify-center rounded-sm border-2 border-white text-xl tracking-[2.3px] uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950"
             >
               Login
-            </a>
+            </button>
           </nav>
 
           <SocialLinks className="mt-auto justify-center pt-12" />
-        </Dialog.Popup>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </DialogPopup>
+      </DialogPortal>
+    </Dialog>
   );
 }

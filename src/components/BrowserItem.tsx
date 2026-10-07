@@ -1,5 +1,5 @@
 import type { Browser } from "@/types/browser";
-import { Button } from "@/ui/button";
+import DemoButton from "./DemoButton";
 import Icon from "./Icon";
 
 interface BrowserItemProps {
@@ -24,10 +24,10 @@ export default function BrowserItem({ browser }: BrowserItemProps) {
       <div className="flex flex-col gap-6 self-stretch">
         <Icon name="dots" className="h-1" />
 
-        <Button className="mx-6.5">
+        <DemoButton className="mx-6.5">
           Add & Install Extension
           <span className="sr-only"> for {name}</span>
-        </Button>
+        </DemoButton>
       </div>
     </div>
   );

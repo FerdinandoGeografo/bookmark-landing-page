@@ -1,6 +1,5 @@
 import { LINKS } from "@/constants/links";
-import { buttonVariants } from "@/ui/button-variants";
-import { cn } from "@/lib/utils";
+import DemoButton from "./DemoButton";
 
 export default function Navigation() {
   return (
@@ -17,15 +16,13 @@ export default function Navigation() {
           </li>
         ))}
         <li>
-          <a
-            href="#"
-            className={cn(
-              buttonVariants({ variant: "accent", size: "sm" }),
-              "leading-4.25 tracking-widest uppercase",
-            )}
+          <DemoButton
+            variant="accent"
+            size="sm"
+            className="leading-4.25 tracking-widest uppercase"
           >
             Login
-          </a>
+          </DemoButton>
         </li>
       </ul>
     </nav>
