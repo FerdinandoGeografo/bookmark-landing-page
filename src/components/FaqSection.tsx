@@ -4,8 +4,8 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/ui/accordion";
-import { Button } from "@/ui/button";
 import { QUESTIONS } from "@/constants/questions";
+import DemoButton from "./DemoButton";
 import HeadingBox from "./HeadingBox";
 
 export default function FaqSection() {
@@ -33,7 +33,7 @@ export default function FaqSection() {
         ))}
       </Accordion>
 
-      <Button className="px-5.5">More info</Button>
+      <DemoButton className="px-5.5">More info</DemoButton>
     </section>
   );
 }
