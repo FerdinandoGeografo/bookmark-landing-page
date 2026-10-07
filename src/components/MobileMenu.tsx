@@ -3,6 +3,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { LINKS } from "@/constants/links";
 import { cn } from "@/lib/utils";
+import Icon from "./Icon";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
 
@@ -51,9 +52,7 @@ export default function MobileMenu() {
         aria-label="Open menu"
         className={cn(iconButtonClassName, "lg:hidden")}
       >
-        <svg aria-hidden="true" className="h-3.75 w-4.5">
-          <use href="#menu" />
-        </svg>
+        <Icon name="menu" className="h-3.75 w-4.5" />
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -66,9 +65,7 @@ export default function MobileMenu() {
               aria-label="Close menu"
               className={iconButtonClassName}
             >
-              <svg aria-hidden="true" className="h-3.75 w-4">
-                <use href="#close" />
-              </svg>
+              <Icon name="close" className="h-3.75 w-4" />
             </Dialog.Close>
           </div>
 

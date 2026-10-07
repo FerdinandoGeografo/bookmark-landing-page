@@ -1,5 +1,6 @@
 import type { Browser } from "@/types/browser";
 import { Button } from "@/ui/button";
+import Icon from "./Icon";
 
 interface BrowserItemProps {
   browser: Browser;
@@ -21,9 +22,7 @@ export default function BrowserItem({ browser }: BrowserItemProps) {
       </div>
 
       <div className="flex flex-col gap-6 self-stretch">
-        <svg className="h-1" aria-hidden="true">
-          <use href="#dots" />
-        </svg>
+        <Icon name="dots" className="h-1" />
 
         <Button className="mx-6.5">
           Add & Install Extension

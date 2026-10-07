@@ -1,5 +1,6 @@
 import { SOCIALS } from "@/constants/socials";
 import { cn } from "@/lib/utils";
+import Icon from "./Icon";
 
 interface SocialLinksProps {
   className?: string;
@@ -15,15 +16,13 @@ export default function SocialLinks({ className }: SocialLinksProps) {
             href="#"
             className="group flex outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-4 focus-visible:ring-offset-blue-950"
           >
-            <svg
-              aria-hidden="true"
+            <Icon
+              name={icon}
               className={cn(
                 "text-white transition-colors duration-300 group-hover:text-red-400",
                 iconClassName,
               )}
-            >
-              <use href={`#${icon}`} />
-            </svg>
+            />
           </a>
         </li>
       ))}

@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
+import Icon from "./Icon";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -85,12 +86,10 @@ export default function NewsletterSection() {
               className={cn(hasError && "rounded-b-none pr-12")}
             />
             {hasError && (
-              <svg
-                aria-hidden="true"
+              <Icon
+                name="error"
                 className="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2"
-              >
-                <use href="#error" />
-              </svg>
+              />
             )}
           </div>
           <p

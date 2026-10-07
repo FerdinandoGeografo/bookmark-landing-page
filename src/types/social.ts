@@ -1,5 +1,7 @@
+import type { IconName } from "./icon";
+
 export type Social = {
   name: string;
-  icon: "facebook" | "twitter";
+  icon: Extract<IconName, "facebook" | "twitter">;
   iconClassName: string;
 };
