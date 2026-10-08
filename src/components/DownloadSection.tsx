@@ -1,8 +1,8 @@
-import * as m from "motion/react-m";
+import { motion } from "motion/react";
 import { BROWSERS } from "@/constants/browsers";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { dropIn, fadeUp, staggerChildren } from "@/lib/motion";
+import { enterFrom, fadeUp, staggerChildren } from "@/lib/motion/variants";
 import HeadingBox from "./HeadingBox";
 import BrowserItem from "./BrowserItem";
 import Reveal from "./Reveal";
@@ -32,14 +32,15 @@ export default function DownloadSection() {
       {isDesktop ? (
         <Reveal
           as="ul"
-          variants={staggerChildren(0.12)}
+          variants={staggerChildren({ step: 0.12 })}
           className={LIST_CLASS_NAME}
         >
           {BROWSERS.map((browser) => (
             <li key={browser.name}>
-              <m.div variants={dropIn}>
+              {/* Drops into the offset of its list item. */}
+              <motion.div variants={enterFrom({ y: -40 })}>
                 <BrowserItem browser={browser} />
-              </m.div>
+              </motion.div>
             </li>
           ))}
         </Reveal>
@@ -47,7 +48,7 @@ export default function DownloadSection() {
         <ul className={LIST_CLASS_NAME}>
           {BROWSERS.map((browser) => (
             <li key={browser.name}>
-              <Reveal variants={fadeUp}>
+              <Reveal variants={fadeUp()}>
                 <BrowserItem browser={browser} />
               </Reveal>
             </li>

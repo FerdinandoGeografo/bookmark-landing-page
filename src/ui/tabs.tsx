@@ -1,10 +1,9 @@
 import { useId } from "react";
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
-import { LayoutGroup } from "motion/react";
-import * as m from "motion/react-m";
+import { LayoutGroup, motion } from "motion/react";
 import { TABLET_QUERY } from "@/constants/breakpoints";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { quickSpring } from "@/lib/motion";
+import { quickSpring } from "@/lib/motion/transitions";
 import { cn } from "@/lib/utils";
 
 // The layout group keeps each instance's indicator to its own tabs.
@@ -33,12 +32,34 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
   );
 }
 
-const INDICATOR_CLASS_NAME =
-  "absolute inset-x-2.25 bottom-0 h-1 bg-red-400 md:inset-x-0";
+/**
+ * Red bar under the active tab. In a row it slides from the previous tab:
+ * every instance shares one `layoutId`, so Motion animates the bar from its
+ * old place to the new one. Stacked, sliding would cross the labels in
+ * between, so the bar grows from the centre of the new tab instead.
+ */
+function TabIndicator({ slides }: { slides: boolean }) {
+  const className =
+    "absolute inset-x-2.25 bottom-0 h-1 bg-red-400 md:inset-x-0";
 
-// The active tab renders the indicator. In a row it slides from the previous
-// tab (shared layoutId); stacked, it grows from the centre of the new tab
-// instead of sliding across the labels in between.
+  return slides ? (
+    <motion.span
+      layoutId="tabs-indicator"
+      transition={quickSpring}
+      className={className}
+    />
+  ) : (
+    <motion.span
+      initial={{ scaleX: 0 }}
+      animate={{ scaleX: 1 }}
+      transition={quickSpring}
+      className={className}
+    />
+  );
+}
+
+// Only the active tab renders the indicator, whose animation depends on
+// whether the tabs sit in a row.
 function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
   const isRow = useMediaQuery(TABLET_QUERY);
 
@@ -53,20 +74,7 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
         <button {...tabProps}>
           <span className="relative py-5 md:w-full md:py-7.75">
             {children}
-            {active &&
-              (isRow ? (
-                <m.span
-                  layoutId="tabs-indicator"
-                  className={INDICATOR_CLASS_NAME}
-                />
-              ) : (
-                <m.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={quickSpring}
-                  className={INDICATOR_CLASS_NAME}
-                />
-              ))}
+            {active && <TabIndicator slides={isRow} />}
           </span>
         </button>
       )}

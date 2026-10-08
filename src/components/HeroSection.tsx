@@ -1,9 +1,11 @@
-import * as m from "motion/react-m";
-import { fadeUp, slideIn, staggerChildren } from "@/lib/motion";
+import { motion } from "motion/react";
+import { fadeUp, slideIn, staggerChildren } from "@/lib/motion/variants";
 import DemoButton from "./DemoButton";
 import ImageDecoration from "./ImageDecoration";
 import Reveal from "./Reveal";
 
+// In the viewport on load: the illustration and its pill slide in from the
+// right while the title, the text and the buttons rise one after another.
 export default function HeroSection() {
   return (
     <Reveal
@@ -25,31 +27,31 @@ export default function HeroSection() {
         />
       </ImageDecoration>
 
-      <m.div
+      <motion.div
         variants={staggerChildren()}
         className="flex flex-col gap-4 text-center md:max-w-135 md:gap-6 md:max-lg:self-center lg:pb-5.75 lg:text-left"
       >
-        <m.h1
-          variants={fadeUp}
+        <motion.h1
+          variants={fadeUp()}
           className="text-3xl leading-10 font-medium text-blue-950 capitalize md:text-5xl md:leading-13"
         >
           A simple bookmark manager
-        </m.h1>
-        <m.p
-          variants={fadeUp}
+        </motion.h1>
+        <motion.p
+          variants={fadeUp()}
           className="text-sm leading-6.25 text-blue-950/50 md:text-lg md:leading-7"
         >
           A clean and simple interface to organize your favourite websites. Open
           a new browser tab and see your sites load instantly. Try it for free.
-        </m.p>
-        <m.div
-          variants={fadeUp}
+        </motion.p>
+        <motion.div
+          variants={fadeUp()}
           className="mt-4 flex flex-wrap items-center gap-3.5 *:flex-1 lg:mt-2 lg:*:flex-initial"
         >
           <DemoButton>Get it on Chrome</DemoButton>
           <DemoButton variant="secondary">Get it on Firefox</DemoButton>
-        </m.div>
-      </m.div>
+        </motion.div>
+      </motion.div>
     </Reveal>
   );
 }

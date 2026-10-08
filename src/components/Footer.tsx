@@ -1,14 +1,15 @@
 import { LINKS } from "@/constants/links";
-import { fadeIn } from "@/lib/motion";
+import { fadeIn } from "@/lib/motion/variants";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
 import SocialLinks from "./SocialLinks";
 
+// Fades in as a whole once it scrolls into view.
 export default function Footer() {
   return (
     <footer className="flex bg-blue-950">
       <Reveal
-        variants={fadeIn}
+        variants={fadeIn()}
         className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-[31.5px]"
       >
         <a

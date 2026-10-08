@@ -1,6 +1,5 @@
 import type { CSSProperties, PropsWithChildren } from "react";
-import type { Variants } from "motion/react";
-import * as m from "motion/react-m";
+import { motion, type Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 
 // Pill size in the mobile (375px) and desktop (1440px) design frames.
@@ -24,7 +23,7 @@ interface ImageDecorationProps {
   mobile: PillPlacement;
   desktop: PillPlacement;
   className?: string;
-  // Entrance of the box, pill included.
+  // Entrance of the box, pill included, driven by a parent such as Reveal.
   variants?: Variants;
 }
 
@@ -73,7 +72,7 @@ export default function ImageDecoration({
   } as CSSProperties;
 
   return (
-    <m.div
+    <motion.div
       variants={variants}
       style={style}
       className={cn(
@@ -85,6 +84,6 @@ export default function ImageDecoration({
       )}
     >
       {children}
-    </m.div>
+    </motion.div>
   );
 }

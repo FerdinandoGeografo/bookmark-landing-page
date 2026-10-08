@@ -1,12 +1,9 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { AnimatePresence, useReducedMotion } from "motion/react";
-import * as m from "motion/react-m";
+import { AnimatePresence, motion } from "motion/react";
 
-import { quickSpring } from "@/lib/motion";
+import { useReducedTransition } from "@/hooks/useReducedTransition";
+import { fade, quickSpring } from "@/lib/motion/transitions";
 import { cn } from "@/lib/utils";
-
-const FADE = { duration: 0.2, ease: "easeOut" } as const;
-const INSTANT = { duration: 0 } as const;
 
 function Dialog<Payload>(props: DialogPrimitive.Root.Props<Payload>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -47,14 +44,16 @@ function DialogPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
   );
 }
 
-// The dialog's `open` state comes from its Root: the portal stays mounted
-// while the overlay fades and the popup shrinks away.
+// Pass the `open` state of the Root. AnimatePresence keeps the portal mounted
+// (keepMounted) while Motion plays the exit: the overlay fades out and the
+// popup shrinks away, the reverse of how they came in.
 function DialogContent({
   open,
   className,
   ...props
 }: DialogPrimitive.Popup.Props & { open: boolean }) {
-  const shouldReduceMotion = useReducedMotion();
+  const fadeTransition = useReducedTransition(fade);
+  const popTransition = useReducedTransition(quickSpring);
 
   return (
     <AnimatePresence>
@@ -62,22 +61,22 @@ function DialogContent({
         <DialogPortal keepMounted>
           <DialogOverlay
             render={
-              <m.div
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={shouldReduceMotion ? INSTANT : FADE}
+                transition={fadeTransition}
               />
             }
           />
           <DialogPopup
             data-slot="dialog-content"
             render={
-              <m.div
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={shouldReduceMotion ? INSTANT : quickSpring}
+                transition={popTransition}
               />
             }
             className={cn(

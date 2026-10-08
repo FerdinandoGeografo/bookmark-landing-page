@@ -1,14 +1,10 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { AnimatePresence, useReducedMotion } from "motion/react";
-import * as m from "motion/react-m";
+import { AnimatePresence, motion } from "motion/react";
 
-import { quickSpring } from "@/lib/motion";
+import { useReducedTransition } from "@/hooks/useReducedTransition";
+import { quickSpring, resize } from "@/lib/motion/transitions";
 import { cn } from "@/lib/utils";
 import Icon from "@/components/Icon";
-
-// Height is not a transform, so reduced motion has to stop it explicitly.
-const HEIGHT_TRANSITION = { duration: 0.3, ease: "easeOut" } as const;
-const INSTANT = { duration: 0 } as const;
 
 interface OpenProps {
   // Whether the item is open, from the state that controls the accordion.
@@ -55,7 +51,8 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <m.span
+        {/* The arrow turns with a spring; its colour changes in CSS. */}
+        <motion.span
           initial={false}
           animate={{ rotate: open ? 180 : 0 }}
           transition={quickSpring}
@@ -65,7 +62,7 @@ function AccordionTrigger({
             name="arrow"
             className="h-3 w-4.5 text-blue-600 group-aria-expanded:text-red-400"
           />
-        </m.span>
+        </motion.span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -79,8 +76,8 @@ function AccordionContent({
   children,
   ...props
 }: AccordionPrimitive.Panel.Props & OpenProps) {
-  const shouldReduceMotion = useReducedMotion();
-  const transition = shouldReduceMotion ? INSTANT : HEIGHT_TRANSITION;
+  // Height is not a transform: MotionConfig would keep animating it.
+  const transition = useReducedTransition(resize);
 
   return (
     <AnimatePresence initial={false}>
@@ -90,7 +87,7 @@ function AccordionContent({
           keepMounted
           hidden={false}
           render={
-            <m.div
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

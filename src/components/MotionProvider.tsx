@@ -1,16 +1,11 @@
 import type { PropsWithChildren } from "react";
-import { LazyMotion, MotionConfig } from "motion/react";
+import { MotionConfig } from "motion/react";
 
-const loadFeatures = () =>
-  import("@/lib/motion-features").then((module) => module.default);
-
-// Components render `m` elements. The animation features, layout included for
-// the tab indicator, load in a separate chunk. Reduced motion turns off
-// transforms and layout animations.
+/**
+ * Global Motion settings. With `reducedMotion="user"`, people who ask their
+ * system for reduced motion get no transform or layout animations; the
+ * components also skip fades and delays through `useReducedMotion`.
+ */
 export default function MotionProvider({ children }: PropsWithChildren) {
-  return (
-    <LazyMotion features={loadFeatures} strict>
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
-    </LazyMotion>
-  );
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

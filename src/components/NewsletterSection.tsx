@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
-import * as m from "motion/react-m";
-import { fadeUp } from "@/lib/motion";
+import { motion } from "motion/react";
+import { fadeUp } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
@@ -17,6 +17,7 @@ function getEmailError(value: string) {
   return null;
 }
 
+// Revealed on scroll: the heading group, then the form, rise into place.
 export default function NewsletterSection() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,8 +52,8 @@ export default function NewsletterSection() {
       aria-labelledby="contact-title"
       className="flex min-h-90 flex-col gap-8 bg-blue-600 px-8 pt-15 pb-8 text-center text-white md:items-center md:gap-9 md:pt-14.5"
     >
-      <m.div
-        variants={fadeUp}
+      <motion.div
+        variants={fadeUp()}
         className="flex flex-col md:max-w-110.5 md:gap-6"
       >
         <p className="text-2xs leading-10 font-medium tracking-[4.6px] md:text-[13px] md:tracking-[5px]">
@@ -64,9 +65,9 @@ export default function NewsletterSection() {
         >
           Stay up-to-date with what we’re doing
         </h2>
-      </m.div>
-      <m.form
-        variants={fadeUp}
+      </motion.div>
+      <motion.form
+        variants={fadeUp()}
         noValidate
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 md:flex-row md:items-start"
@@ -109,7 +110,7 @@ export default function NewsletterSection() {
         <Button variant="accent" type="submit">
           Contact Us
         </Button>
-      </m.form>
+      </motion.form>
     </Reveal>
   );
 }
