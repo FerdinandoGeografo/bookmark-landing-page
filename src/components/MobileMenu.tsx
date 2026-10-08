@@ -1,6 +1,8 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import * as m from "motion/react-m";
+import { fadeIn } from "@/lib/motion";
 import { LINKS } from "@/constants/links";
 import { demoDialog } from "@/lib/demo-dialog";
 import { cn } from "@/lib/utils";
@@ -65,6 +67,7 @@ export default function MobileMenu() {
     >
       <DialogTrigger
         ref={triggerRef}
+        render={<m.button variants={fadeIn} />}
         aria-label="Open menu"
         className={cn(iconButtonClassName, "lg:hidden")}
       >

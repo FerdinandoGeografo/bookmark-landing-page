@@ -1,3 +1,5 @@
+import * as m from "motion/react-m";
+import { fadeUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface HeadingBoxProps {
@@ -14,7 +16,10 @@ export default function HeadingBox({
   titleClassName,
 }: HeadingBoxProps) {
   return (
-    <div className="flex max-w-135 flex-col text-center md:gap-4">
+    <m.div
+      variants={fadeUp}
+      className="flex max-w-135 flex-col text-center md:gap-4"
+    >
       <h2
         id={titleId}
         className={cn(
@@ -27,6 +32,6 @@ export default function HeadingBox({
       <p className="text-sm leading-6.25 text-blue-950/50 md:text-lg md:leading-7">
         {description}
       </p>
-    </div>
+    </m.div>
   );
 }

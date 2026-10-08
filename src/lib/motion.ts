@@ -25,6 +25,12 @@ export const fadeDown: Variants = {
   visible: { opacity: 1, y: 0, transition: quickSpring },
 };
 
+// Cards dropping into their offsets.
+export const dropIn: Variants = {
+  hidden: { opacity: 0, y: -40 },
+  visible: { opacity: 1, y: 0, transition: spring },
+};
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },

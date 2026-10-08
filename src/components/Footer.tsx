@@ -1,11 +1,16 @@
 import { LINKS } from "@/constants/links";
+import { fadeIn } from "@/lib/motion";
 import Logo from "./Logo";
+import Reveal from "./Reveal";
 import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   return (
     <footer className="flex bg-blue-950">
-      <div className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-[31.5px]">
+      <Reveal
+        variants={fadeIn}
+        className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-[31.5px]"
+      >
         <a
           href="#"
           aria-label="Bookmark home"
@@ -30,7 +35,7 @@ export default function Footer() {
         </nav>
 
         <SocialLinks className="mt-2.25 lg:mt-0 lg:ml-auto" />
-      </div>
+      </Reveal>
     </footer>
   );
 }

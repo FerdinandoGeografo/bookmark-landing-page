@@ -1,4 +1,6 @@
 import { LINKS } from "@/constants/links";
+import * as m from "motion/react-m";
+import { fadeDown } from "@/lib/motion";
 import DemoButton from "./DemoButton";
 
 export default function Navigation() {
@@ -6,16 +8,16 @@ export default function Navigation() {
     <nav aria-label="Main" className="hidden lg:flex">
       <ul className="flex items-center gap-11.5">
         {LINKS.map((link) => (
-          <li key={link}>
+          <m.li key={link} variants={fadeDown}>
             <a
               href="#"
               className="text-[13px] leading-4.25 tracking-[.125em] text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>
-          </li>
+          </m.li>
         ))}
-        <li>
+        <m.li variants={fadeDown}>
           <DemoButton
             variant="accent"
             size="sm"
@@ -23,7 +25,7 @@ export default function Navigation() {
           >
             Login
           </DemoButton>
-        </li>
+        </m.li>
       </ul>
     </nav>
   );

@@ -1,8 +1,11 @@
 import { useRef, useState, type FormEvent } from "react";
+import * as m from "motion/react-m";
+import { fadeUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
 import Icon from "./Icon";
+import Reveal from "./Reveal";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -42,12 +45,16 @@ export default function NewsletterSection() {
   return (
     // As in the design, the section keeps its 360px height when the error
     // message appears: the message takes room from the bottom padding.
-    <section
+    <Reveal
+      as="section"
       id="contact"
       aria-labelledby="contact-title"
       className="flex min-h-90 flex-col gap-8 bg-blue-600 px-8 pt-15 pb-8 text-center text-white md:items-center md:gap-9 md:pt-14.5"
     >
-      <div className="flex flex-col md:max-w-110.5 md:gap-6">
+      <m.div
+        variants={fadeUp}
+        className="flex flex-col md:max-w-110.5 md:gap-6"
+      >
         <p className="text-2xs leading-10 font-medium tracking-[4.6px] md:text-[13px] md:tracking-[5px]">
           35,000+ ALREADY JOINED
         </p>
@@ -57,8 +64,9 @@ export default function NewsletterSection() {
         >
           Stay up-to-date with what we’re doing
         </h2>
-      </div>
-      <form
+      </m.div>
+      <m.form
+        variants={fadeUp}
         noValidate
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 md:flex-row md:items-start"
@@ -101,7 +109,7 @@ export default function NewsletterSection() {
         <Button variant="accent" type="submit">
           Contact Us
         </Button>
-      </form>
-    </section>
+      </m.form>
+    </Reveal>
   );
 }

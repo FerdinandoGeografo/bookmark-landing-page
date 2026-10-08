@@ -1,4 +1,6 @@
 import type { CSSProperties, PropsWithChildren } from "react";
+import type { Variants } from "motion/react";
+import * as m from "motion/react-m";
 import { cn } from "@/lib/utils";
 
 // Pill size in the mobile (375px) and desktop (1440px) design frames.
@@ -22,6 +24,8 @@ interface ImageDecorationProps {
   mobile: PillPlacement;
   desktop: PillPlacement;
   className?: string;
+  // Entrance of the box, pill included.
+  variants?: Variants;
 }
 
 const round = (value: number) => Math.round(value * 1000) / 1000;
@@ -46,6 +50,7 @@ export default function ImageDecoration({
   mobile,
   desktop,
   className,
+  variants,
   children,
 }: PropsWithChildren<ImageDecorationProps>) {
   const style = {
@@ -68,7 +73,8 @@ export default function ImageDecoration({
   } as CSSProperties;
 
   return (
-    <div
+    <m.div
+      variants={variants}
       style={style}
       className={cn(
         "relative flex shrink-0 after:absolute after:top-(--pill-top) after:-z-1 after:h-(--pill-height) after:w-(--pill-width) after:rounded-full after:bg-blue-600",
@@ -79,6 +85,6 @@ export default function ImageDecoration({
       )}
     >
       {children}
-    </div>
+    </m.div>
   );
 }

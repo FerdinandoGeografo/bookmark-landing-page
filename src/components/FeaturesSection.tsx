@@ -1,8 +1,11 @@
+import * as m from "motion/react-m";
+import { fadeUp, staggerChildren } from "@/lib/motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { FEATURES } from "@/constants/features";
 import DemoButton from "./DemoButton";
 import HeadingBox from "./HeadingBox";
 import ImageDecoration from "./ImageDecoration";
+import Reveal from "./Reveal";
 
 // As in the design frames, every tab keeps the box of the first illustration:
 // the others start at the same top and the taller ones overflow it downwards,
@@ -11,7 +14,8 @@ const FRAME = FEATURES[0].image;
 
 export default function FeaturesSection() {
   return (
-    <section
+    <Reveal
+      as="section"
       id="features"
       aria-labelledby="features-title"
       className="mt-35 flex flex-col items-center gap-10 px-8 md:mt-45 md:gap-10.25"
@@ -22,8 +26,11 @@ export default function FeaturesSection() {
         description="Our aim is to make it quick and easy for you to access your favourite websites. Your bookmarks sync between your devices so you can access them on the go."
       />
 
-      <Tabs defaultValue={FEATURES[0].id}>
-        <TabsList>
+      <Tabs
+        defaultValue={FEATURES[0].id}
+        render={<m.div variants={staggerChildren(0.1)} />}
+      >
+        <TabsList render={<m.div variants={fadeUp} />}>
           {FEATURES.map((feature) => (
             <TabsTrigger key={feature.id} value={feature.id}>
               {feature.label}
@@ -33,7 +40,7 @@ export default function FeaturesSection() {
         {/* All panels share one grid cell, so the section always keeps the
             height of the tallest tab. Inactive panels stay mounted but are
             invisible and inert (Base UI) instead of display: none. */}
-        <div className="grid *:col-start-1 *:row-start-1">
+        <m.div variants={fadeUp} className="grid *:col-start-1 *:row-start-1">
           {FEATURES.map((feature) => (
             <TabsContent
               key={feature.id}
@@ -77,8 +84,8 @@ export default function FeaturesSection() {
               </div>
             </TabsContent>
           ))}
-        </div>
+        </m.div>
       </Tabs>
-    </section>
+    </Reveal>
   );
 }
