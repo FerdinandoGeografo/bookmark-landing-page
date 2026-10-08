@@ -81,7 +81,7 @@ export default function ImageDecoration({
     ),
     "--pill-top": fluid(mobile.top, desktop.top, mobile, desktop, aspectRatio),
     "--pill-inset": fluid(mobile.inset, desktop.inset, mobile, desktop),
-  } as CSSProperties;
+  } satisfies CSSProperties;
 
   return (
     <motion.div

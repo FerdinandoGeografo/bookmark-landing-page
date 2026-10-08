@@ -30,7 +30,7 @@ export default function Reveal({
   ...props
 }: PropsWithChildren<RevealProps>) {
   const reveal = useReveal({ amount });
-  const Element = ELEMENTS[as] as typeof motion.div;
+  const Element = ELEMENTS[as];
 
   return (
     <Element {...props} variants={variants} {...reveal}>

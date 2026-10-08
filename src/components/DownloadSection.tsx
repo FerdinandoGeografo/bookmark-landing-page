@@ -15,7 +15,7 @@ const LIST_CLASS_NAME =
 // The offset lives on the list item, so the card inside it stays free for
 // its entrance animation.
 function cardOffset(index: number) {
-  return { "--card-offset": `${index * 40}px` } as CSSProperties;
+  return { "--card-offset": `${index * 40}px` } satisfies CSSProperties;
 }
 
 export default function DownloadSection() {
