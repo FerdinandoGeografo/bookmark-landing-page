@@ -44,9 +44,8 @@ export default function MobileMenu() {
     setOpen(false);
   }
 
-  // Follow a section link only once the dialog has closed, so the scroll
-  // lock does not swallow the movement. Focus stays off the menu button, so
-  // the next Tab continues from the section, as after a link outside the menu.
+  // Navigate once the menu has closed, or the scroll lock would swallow the
+  // scroll. Focus stays off the menu button, so Tab continues from the section.
   function handleLinkClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     const { href } = event.currentTarget;
@@ -54,8 +53,8 @@ export default function MobileMenu() {
     closeThen(() => window.location.assign(href));
   }
 
-  // Pricing and Login have no destination: swap the menu for the demo notice.
-  // Focusing the menu button first gives the notice a place to return focus to.
+  // Pricing and Login swap the menu for the demo notice. Focusing the menu
+  // button first gives the notice a place to return focus to.
   function handleDemoClick() {
     closeThen(() => {
       triggerRef.current?.focus();

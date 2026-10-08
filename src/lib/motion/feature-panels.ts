@@ -2,18 +2,8 @@ import { stagger, type Variants } from "motion/react";
 import { instant, leave, spring } from "./transitions";
 
 /*
- * Tab switch of the feature panels. Every panel stays mounted in the same
- * grid cell, in one of three states:
- * - "active": the selected panel, in its place;
- * - "before" / "after": a panel whose tab precedes or follows the selected
- *   one, out of sight on that side.
- * A panel enters from the side of its tab and leaves towards the side it
- * now belongs to, so the content always moves in the direction of travel.
- *
- * Each state sets the same values in both layouts, and the active one is
- * identical in both: crossing the breakpoint leaves the visible panel still.
- * A value missing from one layout would fall back to the panel's state at
- * mount instead.
+ * Feature panels are "active", or hidden "before" or "after" the selected one,
+ * so they enter from the side of their tab and leave towards the other.
  */
 
 export type FeaturePanelState = "active" | "before" | "after";
@@ -28,10 +18,8 @@ export function getFeaturePanelState(
 
 export interface FeaturePanelOptions {
   /**
-   * "row": illustration and text side by side (desktop). The content travels
-   * sideways, the illustration further than the text.
-   * "column": stacked (mobile and tablet). The illustration fades in from
-   * slightly smaller and the text rises, without wide sideways movement.
+   * "row" (desktop) moves the content sideways; "column" (stacked) grows the
+   * illustration slightly and raises the text.
    */
   layout: "row" | "column";
   /** Reduced motion: switch at once, without delays. */
@@ -65,6 +53,8 @@ export function createFeaturePanelVariants({
     transition: exit,
   });
 
+  // Both layouts set the same values, with identical active ones: a missing
+  // value would fall back to its state at mount when the breakpoint is crossed.
   return {
     /** The panel itself: it only times its children. */
     panel: {

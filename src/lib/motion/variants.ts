@@ -2,14 +2,8 @@ import { stagger, type Transition, type Variants } from "motion/react";
 import { quickSpring, slowFade, spring } from "./transitions";
 
 /*
- * Entrance presets. Each one returns variants with two states:
- * - "hidden": where the element starts, before it is revealed;
- * - "visible": its place in the layout of the design.
- *
- * They only animate opacity and transforms, so once an animation ends the
- * layout is exactly the one of the design. A parent drives them by switching
- * between the two labels (see `useReveal`), and the labels flow down to every
- * descendant `motion` element that uses these presets.
+ * Entrance presets from "hidden" to "visible", the design layout, using only
+ * opacity and transforms. A parent such as `useReveal` switches the label.
  */
 
 export interface EnterOptions {
@@ -57,9 +51,8 @@ export function fadeIn(): Variants {
 }
 
 /**
- * For a parent with no animation of its own: its children run their
- * "visible" variants one after another, `step` seconds apart, in document
- * order.
+ * For a parent with no animation of its own: its children enter one after
+ * another, `step` seconds apart.
  */
 export function staggerChildren(step = 0.08): Variants {
   return {

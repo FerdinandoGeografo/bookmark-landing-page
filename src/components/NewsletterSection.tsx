@@ -44,8 +44,8 @@ export default function NewsletterSection() {
   }
 
   return (
-    // As in the design, the section keeps its 360px height when the error
-    // message appears: the message takes room from the bottom padding.
+    // As in the design, the error takes room from the bottom padding, so the
+    // section stays 360px tall.
     <Reveal
       as="section"
       id="contact"

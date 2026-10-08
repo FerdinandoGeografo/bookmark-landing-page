@@ -34,10 +34,8 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
 }
 
 /**
- * Red bar under the active tab. In a row it slides from the previous tab:
- * every instance shares one `layoutId`, so Motion animates the bar from its
- * old place to the new one. Stacked, sliding would cross the labels in
- * between, so the bar grows from the centre of the new tab instead.
+ * Red bar under the active tab. In a row it slides over through a shared
+ * `layoutId`; stacked, sliding would cross the labels, so it grows in place.
  */
 function TabIndicator({ slides }: { slides: boolean }) {
   const transition = useReducedTransition(quickSpring);
@@ -86,7 +84,7 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
 }
 
 // The panel is not interactive: unlike Base UI's default, it stays out of the
-// tab order, and Tab goes from the tab list to the panel's own button.
+// tab order, so Tab goes from the tab list straight to its button.
 function TabsContent(props: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel data-slot="tabs-content" tabIndex={-1} {...props} />

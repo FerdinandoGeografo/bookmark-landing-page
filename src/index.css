@@ -28,9 +28,8 @@
 }
 
 @layer base {
-  /* Keeps focused elements clear of the sticky header (136px at its tallest).
-     The scrollbar is thin and takes the primary blue, here and, through
-     inheritance, in the mobile menu. */
+  /* Keeps focused elements clear of the sticky header (136px at its tallest);
+     the mobile menu inherits the thin blue scrollbar. */
   html {
     scroll-padding-top: 8.5rem;
     scrollbar-color: var(--color-blue-600) transparent;
@@ -73,8 +72,7 @@
   --text-3xl: 1.875rem;
   --text-4xl: 2rem;
 
-  /* Text presets measured in the design frames: each sets the font size,
-     the line height and the letter spacing of one kind of text. */
+  /* Text presets measured in the frames: size, line height, letter spacing. */
   --text-link: .8125rem; /* 13px: navigation, Login, desktop footer */
   --text-link--line-height: 1.0625rem;
   --text-link--letter-spacing: .125em;
@@ -123,9 +121,8 @@
   max-width: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
 }
 
-/* A 1px line, 1px below the text, that expands across it on hover and on
-   keyboard focus. Put it on the link, or on a span inside a wider link or
-   button. */
+/* A 1px underline that expands on hover and keyboard focus. Put it on a link,
+   or on a span inside a wider link or button. */
 @utility link-underline {
   position: relative;
 

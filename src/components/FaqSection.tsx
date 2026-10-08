@@ -12,8 +12,7 @@ import DemoButton from "./DemoButton";
 import HeadingBox from "./HeadingBox";
 import Reveal from "./Reveal";
 
-// Revealed on scroll: the heading rises, then the questions one after another
-// and the button. Opening an answer is animated by AccordionContent.
+// Revealed on scroll: the heading, the questions in turn, then the button.
 export default function FaqSection() {
   // One source for Base UI and the animations: the values of the open items.
   const [openItems, setOpenItems] = useState<string[]>([]);

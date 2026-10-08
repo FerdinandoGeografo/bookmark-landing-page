@@ -7,10 +7,7 @@ function subscribe(onChange: () => void) {
 
 const getHasScrolled = () => window.scrollY > 0;
 
-/**
- * Whether the page has left the very top. Components re-render only when
- * the answer changes, not on every scroll event.
- */
+/** Whether the page has left the top; re-renders only when that changes. */
 export function useHasScrolled() {
   return useSyncExternalStore(subscribe, getHasScrolled);
 }

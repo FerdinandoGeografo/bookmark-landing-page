@@ -44,9 +44,8 @@ function DialogPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
   );
 }
 
-// Pass the `open` state of the Root. AnimatePresence keeps the portal mounted
-// (keepMounted) while Motion plays the exit: the overlay fades out and the
-// popup shrinks away, the reverse of how they came in.
+// Pass the Root's `open` state: AnimatePresence keeps the portal mounted while
+// the overlay fades out and the popup shrinks away.
 function DialogContent({
   open,
   className,

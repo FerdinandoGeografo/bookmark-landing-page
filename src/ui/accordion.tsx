@@ -69,8 +69,8 @@ function AccordionTrigger({
   );
 }
 
-// The panel stays mounted while it closes, then leaves the DOM. Base UI would
-// hide a closing panel at once, so `hidden` is left to the animation.
+// The panel stays mounted while it animates closed: Base UI would hide it at
+// once, so `hidden` is left to the animation.
 function AccordionContent({
   open,
   className,

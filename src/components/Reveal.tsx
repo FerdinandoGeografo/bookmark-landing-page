@@ -10,18 +10,10 @@ interface RevealProps {
   id?: string;
   "aria-labelledby"?: string;
   className?: string;
-  /**
-   * Variants of the group itself. By default it has no animation of its own
-   * and its children enter one after another.
-   */
+  /** The group's own variants. By default its children enter in turn. */
   variants?: Variants;
 }
 
-/**
- * A group revealed once, as it enters the viewport (see `useReveal`). Give
- * its children entrance presets from `@/lib/motion/variants`, such as
- * `fadeUp()`, or pass `variants` to animate the group as a whole.
- */
 export default function Reveal({
   as = "div",
   variants = staggerChildren(),

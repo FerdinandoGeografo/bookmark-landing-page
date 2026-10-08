@@ -8,8 +8,8 @@ interface NavLinkProps {
   className?: string;
 }
 
-// A link to a section of the page, or, for a page the demo does not have, a
-// button that looks the same and opens the demo notice.
+// A link to a section, or, for a page the demo does not have, a button that
+// looks the same and opens the demo notice.
 export default function NavLink({ link, className }: NavLinkProps) {
   if (link.href) {
     return (

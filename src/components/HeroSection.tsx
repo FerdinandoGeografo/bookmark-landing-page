@@ -4,8 +4,8 @@ import DemoButton from "./DemoButton";
 import ImageDecoration from "./ImageDecoration";
 import Reveal from "./Reveal";
 
-// In the viewport on load: the illustration and its pill slide in from the
-// right while the title, the text and the buttons rise one after another.
+// On load the illustration slides in from the right while the text and the
+// buttons rise in turn.
 export default function HeroSection() {
   return (
     <Reveal

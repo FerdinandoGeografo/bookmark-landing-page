@@ -2,9 +2,8 @@ import { stagger, type Variants } from "motion/react";
 import { fade, instant, quickSpring } from "./transitions";
 
 /*
- * Mobile menu: the overlay fades in, then its rows rise 12px one after
- * another. It fades out as a whole. States: "hidden" and "visible".
- * With `isInstant` (reduced motion) the menu shows and hides at once.
+ * Mobile menu: the overlay fades in, then its rows rise 12px in turn; it fades
+ * out as a whole. With `isInstant` (reduced motion) it switches at once.
  */
 export function createMobileMenuVariants(isInstant: boolean) {
   return {
