@@ -4,12 +4,11 @@ import DemoButton from "./DemoButton";
 import ImageDecoration from "./ImageDecoration";
 import Reveal from "./Reveal";
 
-// On load the illustration slides in from the right while the text and the
-// buttons rise in turn.
 export default function HeroSection() {
   return (
     <Reveal
       as="section"
+      aria-labelledby="hero-title"
       className="lg:pr-fluid-91 lg:pl-fluid-165 mt-10 flex flex-col gap-24 px-8 lg:mt-16.75 lg:flex-row lg:items-end lg:justify-center lg:gap-16.25"
     >
       <ImageDecoration
@@ -34,6 +33,7 @@ export default function HeroSection() {
         className="flex flex-col gap-4 text-center md:max-w-135 md:gap-6 md:max-lg:self-center lg:pb-5.75 lg:text-left"
       >
         <motion.h1
+          id="hero-title"
           variants={fadeUp()}
           className="text-3xl leading-10 font-medium text-blue-950 capitalize md:text-5xl md:leading-13"
         >

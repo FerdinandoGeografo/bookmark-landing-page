@@ -7,7 +7,6 @@ import { useReducedTransition } from "@/hooks/useReducedTransition";
 import { quickSpring } from "@/lib/motion/transitions";
 import { cn } from "@/lib/utils";
 
-// The layout group keeps each instance's indicator to its own tabs.
 function Tabs({ className, ...props }: TabsPrimitive.Root.Props) {
   return (
     <LayoutGroup id={useId()}>
@@ -33,10 +32,6 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
   );
 }
 
-/**
- * Red bar under the active tab. In a row it slides over through a shared
- * `layoutId`; stacked, sliding would cross the labels, so it grows in place.
- */
 function TabIndicator({ slides }: { slides: boolean }) {
   const transition = useReducedTransition(quickSpring);
   const className =
@@ -58,8 +53,6 @@ function TabIndicator({ slides }: { slides: boolean }) {
   );
 }
 
-// Only the active tab renders the indicator, whose animation depends on
-// whether the tabs sit in a row.
 function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
   const isRow = useMediaQuery(TABLET_QUERY);
 
@@ -83,8 +76,6 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
   );
 }
 
-// The panel is not interactive: unlike Base UI's default, it stays out of the
-// tab order, so Tab goes from the tab list straight to its button.
 function TabsContent(props: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel data-slot="tabs-content" tabIndex={-1} {...props} />

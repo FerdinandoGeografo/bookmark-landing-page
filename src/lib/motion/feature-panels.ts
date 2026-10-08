@@ -1,11 +1,7 @@
 import { stagger, type Variants } from "motion/react";
 import { instant, leave, spring } from "./transitions";
 
-/*
- * Feature panels are "active", or hidden "before" or "after" the selected one,
- * so they enter from the side of their tab and leave towards the other.
- */
-
+//Feature panels are "active", or hidden "before" or "after" the selected one.
 export type FeaturePanelState = "active" | "before" | "after";
 
 export function getFeaturePanelState(
@@ -17,16 +13,10 @@ export function getFeaturePanelState(
 }
 
 export interface FeaturePanelOptions {
-  /**
-   * "row" (desktop) moves the content sideways; "column" (stacked) grows the
-   * illustration slightly and raises the text.
-   */
   layout: "row" | "column";
-  /** Reduced motion: switch at once, without delays. */
   isInstant: boolean;
 }
 
-// Offsets of the panels out of sight, in px.
 const IMAGE_DISTANCE = 64;
 const TEXT_DISTANCE = 24;
 const TEXT_RISE = 16;
@@ -39,7 +29,6 @@ export function createFeaturePanelVariants({
   const exit = isInstant ? instant : leave;
   const isRow = layout === "row";
 
-  // Out of sight on one side: -1 before the selected panel, 1 after it.
   const hiddenImage = (side: -1 | 1) => ({
     opacity: 0,
     x: isRow ? side * IMAGE_DISTANCE : 0,
@@ -53,13 +42,9 @@ export function createFeaturePanelVariants({
     transition: exit,
   });
 
-  // Both layouts set the same values, with identical active ones: a missing
-  // value would fall back to its state at mount when the breakpoint is crossed.
   return {
-    /** The panel itself: it only times its children. */
     panel: {
       active: {
-        // The new content starts as the previous one is almost gone.
         transition: {
           delayChildren: isInstant ? 0 : stagger(0.06, { startDelay: 0.15 }),
         },

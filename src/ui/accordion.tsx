@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import Icon from "@/components/Icon";
 
 interface OpenProps {
-  // Whether the item is open, from the state that controls the accordion.
   open: boolean;
 }
 
@@ -69,8 +68,6 @@ function AccordionTrigger({
   );
 }
 
-// The panel stays mounted while it animates closed: Base UI would hide it at
-// once, so `hidden` is left to the animation.
 function AccordionContent({
   open,
   className,

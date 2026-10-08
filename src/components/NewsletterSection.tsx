@@ -1,6 +1,8 @@
-import { useRef, useState, type FormEvent } from "react";
-import { motion } from "motion/react";
+import { useRef, useState, type SubmitEvent } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useReducedTransition } from "@/hooks/useReducedTransition";
 import { demoDialog } from "@/lib/demo-dialog";
+import { quickSpring, resize } from "@/lib/motion/transitions";
 import { fadeUp } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
@@ -16,12 +18,13 @@ function getEmailError(email: string) {
   return null;
 }
 
-// Revealed on scroll: the heading group, then the form, rise into place.
 export default function NewsletterSection() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const messageTransition = useReducedTransition(resize);
+  const iconTransition = useReducedTransition(quickSpring);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const email = String(new FormData(form).get("email") ?? "").trim();
@@ -33,19 +36,15 @@ export default function NewsletterSection() {
       return;
     }
 
-    // There is no backend: the notice says so instead of faking a sign-up.
     demoDialog.openWithPayload({ kind: "newsletter", email });
     form.reset();
   }
 
-  // Validation runs on submit only: typing again just clears the error.
   function handleChange() {
     if (error) setError(null);
   }
 
   return (
-    // As in the design, the error takes room from the bottom padding, so the
-    // section stays 360px tall.
     <Reveal
       as="section"
       id="contact"
@@ -87,25 +86,42 @@ export default function NewsletterSection() {
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? "email-error" : undefined}
               onChange={handleChange}
-              className={cn(error && "rounded-b-none pr-12")}
+              className={cn(
+                "transition-[border-color,border-radius]",
+                error && "rounded-b-none pr-12",
+              )}
             />
-            {error && (
-              <Icon
-                name="error"
-                className="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2"
-              />
-            )}
+            <AnimatePresence initial={false}>
+              {error && (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={iconTransition}
+                  className="pointer-events-none absolute top-1/2 right-3.5 flex -translate-y-1/2"
+                >
+                  <Icon name="error" className="size-5" />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
-          <p
-            id="email-error"
-            aria-live="polite"
-            className={cn(
-              error &&
-                "text-error rounded-b-sm bg-red-400 px-2.5 pt-0.5 pb-1 text-left font-medium italic",
-            )}
-          >
-            {error}
-          </p>
+          <div id="email-error" aria-live="polite">
+            <AnimatePresence initial={false}>
+              {error && (
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: "auto" }}
+                  exit={{ height: 0 }}
+                  transition={messageTransition}
+                  className="overflow-hidden"
+                >
+                  <p className="text-error rounded-b-sm bg-red-400 px-2.5 pt-0.5 pb-1 text-left font-medium italic">
+                    {error}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
         <Button variant="accent" type="submit">
           Contact Us

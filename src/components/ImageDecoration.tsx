@@ -2,31 +2,24 @@ import type { CSSProperties, PropsWithChildren } from "react";
 import { motion, type Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 
-// Pill size in the mobile (375px) and desktop (1440px) design frames.
 const PILL_SIZE = {
   mobile: { width: 577, height: 203 },
   desktop: { width: 1000, height: 352 },
 };
 
-// Where the pill sits in a design frame, in px, from the illustration box.
+// Where the pill sits in px, from the illustration box.
 interface PillPlacement {
-  // Width of the box in that frame.
   image: number;
-  // From the top of the box to the top of the pill.
   top: number;
-  // From the box edge opposite to `bleed` to the rounded end of the pill.
   inset: number;
 }
 
 interface ImageDecorationProps {
-  // Side where the pill leaves the viewport.
   bleed: "left" | "right";
-  // Width / height of the decorated box.
   aspectRatio: number;
   mobile: PillPlacement;
   desktop: PillPlacement;
   className?: string;
-  // Entrance of the box, pill included, driven by a parent such as Reveal.
   variants?: Variants;
 }
 

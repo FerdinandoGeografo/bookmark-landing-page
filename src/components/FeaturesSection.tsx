@@ -15,12 +15,9 @@ import HeadingBox from "./HeadingBox";
 import ImageDecoration from "./ImageDecoration";
 import Reveal from "./Reveal";
 
-// As in the design, every tab keeps the box of the first illustration and the
-// taller ones overflow it downwards, so switching tabs never moves the page.
 const FRAME = FEATURES[0].image;
 
 export default function FeaturesSection() {
-  // One source of truth for Base UI and the animation: the selected tab.
   const [selected, setSelected] = useState(FEATURES[0].id);
   const selectedIndex = FEATURES.findIndex(({ id }) => id === selected);
   const isDesktop = useMediaQuery(DESKTOP_QUERY);
