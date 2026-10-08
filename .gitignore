@@ -32,3 +32,4 @@ dist-ssr
 /.agents/
 /.codex/
 /.claude/
+/skills-lock.json
