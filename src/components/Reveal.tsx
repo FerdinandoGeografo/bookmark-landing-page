@@ -3,7 +3,7 @@ import { motion, type Variants } from "motion/react";
 import { useReveal } from "@/hooks/useReveal";
 import { staggerChildren } from "@/lib/motion/variants";
 
-const ELEMENTS = { div: motion.div, section: motion.section, ul: motion.ul };
+const ELEMENTS = { div: motion.div, section: motion.section };
 
 interface RevealProps {
   as?: keyof typeof ELEMENTS;
