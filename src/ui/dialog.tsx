@@ -1,6 +1,12 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { AnimatePresence, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 
+import { quickSpring } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+
+const FADE = { duration: 0.2, ease: "easeOut" } as const;
+const INSTANT = { duration: 0 } as const;
 
 function Dialog<Payload>(props: DialogPrimitive.Root.Props<Payload>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -25,10 +31,7 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
-      className={cn(
-        "data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 fixed inset-0 z-50 bg-blue-950/50 duration-200",
-        className,
-      )}
+      className={cn("fixed inset-0 z-50 bg-blue-950/50", className)}
       {...props}
     />
   );
@@ -44,19 +47,48 @@ function DialogPopup({ className, ...props }: DialogPrimitive.Popup.Props) {
   );
 }
 
-function DialogContent({ className, ...props }: DialogPrimitive.Popup.Props) {
+// The dialog's `open` state comes from its Root: the portal stays mounted
+// while the overlay fades and the popup shrinks away.
+function DialogContent({
+  open,
+  className,
+  ...props
+}: DialogPrimitive.Popup.Props & { open: boolean }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <DialogPortal>
-      <DialogOverlay />
-      <DialogPopup
-        data-slot="dialog-content"
-        className={cn(
-          "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 fixed top-1/2 left-1/2 flex w-[calc(100%-4rem)] max-w-110 -translate-1/2 flex-col items-center gap-4 rounded-lg bg-white px-6 pt-10 pb-6 text-center shadow-xl shadow-blue-950/20 duration-200 md:px-10",
-          className,
-        )}
-        {...props}
-      />
-    </DialogPortal>
+    <AnimatePresence>
+      {open && (
+        <DialogPortal keepMounted>
+          <DialogOverlay
+            render={
+              <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={shouldReduceMotion ? INSTANT : FADE}
+              />
+            }
+          />
+          <DialogPopup
+            data-slot="dialog-content"
+            render={
+              <m.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={shouldReduceMotion ? INSTANT : quickSpring}
+              />
+            }
+            className={cn(
+              "fixed top-1/2 left-1/2 flex w-[calc(100%-4rem)] max-w-110 -translate-1/2 flex-col items-center gap-4 rounded-lg bg-white px-6 pt-10 pb-6 text-center shadow-xl shadow-blue-950/20 md:px-10",
+              className,
+            )}
+            {...props}
+          />
+        </DialogPortal>
+      )}
+    </AnimatePresence>
   );
 }
 

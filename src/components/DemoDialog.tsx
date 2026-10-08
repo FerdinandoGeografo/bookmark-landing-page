@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { demoDialog } from "@/lib/demo-dialog";
 import { Button } from "@/ui/button";
 import {
@@ -9,9 +10,11 @@ import {
 } from "@/ui/dialog";
 
 export default function DemoDialog() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog handle={demoDialog}>
-      <DialogContent>
+    <Dialog handle={demoDialog} open={open} onOpenChange={setOpen}>
+      <DialogContent open={open}>
         <DialogTitle>This is a demo</DialogTitle>
         <DialogDescription>
           Bookmark is a landing page built for a Frontend Mentor challenge, so
