@@ -12,5 +12,5 @@ const getHasScrolled = () => window.scrollY > 0;
  * the answer changes, not on every scroll event.
  */
 export function useHasScrolled() {
-  return useSyncExternalStore(subscribe, getHasScrolled, () => false);
+  return useSyncExternalStore(subscribe, getHasScrolled);
 }

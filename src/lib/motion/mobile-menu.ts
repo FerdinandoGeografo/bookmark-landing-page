@@ -2,21 +2,11 @@ import { stagger, type Variants } from "motion/react";
 import { fade, instant, quickSpring } from "./transitions";
 
 /*
- * Mobile menu: the overlay fades in, then its rows rise one after another.
- * It fades out as a whole. States: "hidden" and "visible".
+ * Mobile menu: the overlay fades in, then its rows rise 12px one after
+ * another. It fades out as a whole. States: "hidden" and "visible".
+ * With `isInstant` (reduced motion) the menu shows and hides at once.
  */
-
-export interface MobileMenuOptions {
-  /** Reduced motion: show and hide the menu at once. */
-  isInstant?: boolean;
-  /** Distance the rows rise from, in px. */
-  rowDistance?: number;
-}
-
-export function createMobileMenuVariants({
-  isInstant = false,
-  rowDistance = 12,
-}: MobileMenuOptions = {}) {
+export function createMobileMenuVariants(isInstant: boolean) {
   return {
     /** The full-screen popup. */
     popup: {
@@ -31,7 +21,7 @@ export function createMobileMenuVariants({
     },
     /** Each row: logo and close button, links, Login, social links. */
     row: {
-      hidden: { opacity: 0, y: rowDistance },
+      hidden: { opacity: 0, y: 12 },
       visible: {
         opacity: 1,
         y: 0,

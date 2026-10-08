@@ -20,7 +20,7 @@ export default function Header() {
       )}
     >
       <motion.div
-        variants={staggerChildren({ step: 0.06 })}
+        variants={staggerChildren(0.06)}
         {...reveal}
         className="mx-auto flex max-w-360 items-center justify-between px-8 py-10 lg:py-12 lg:pr-41.25 lg:pl-42.75"
       >

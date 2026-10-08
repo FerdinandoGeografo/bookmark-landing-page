@@ -28,9 +28,7 @@ export default function MobileMenu() {
   // Action to run once the menu has finished closing.
   const afterCloseRef = useRef<(() => void) | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const variants = createMobileMenuVariants({
-    isInstant: usePrefersReducedMotion(),
-  });
+  const variants = createMobileMenuVariants(usePrefersReducedMotion());
 
   // Close the menu when the viewport grows into the desktop layout.
   const isDesktop = useMediaQuery(DESKTOP_QUERY);

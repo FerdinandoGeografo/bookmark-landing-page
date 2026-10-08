@@ -9,6 +9,5 @@ export function useMediaQuery(query: string) {
       return () => list.removeEventListener("change", onChange);
     },
     () => window.matchMedia(query).matches,
-    () => false,
   );
 }

@@ -19,19 +19,18 @@ export interface FeaturePanelOptions {
    */
   layout: "row" | "column";
   /** Reduced motion: switch at once, without delays. */
-  isInstant?: boolean;
-  /** Horizontal travel of the illustration in a row, in px. */
-  imageDistance?: number;
-  /** Horizontal travel of the text in a row, in px. */
-  textDistance?: number;
+  isInstant: boolean;
 }
+
+// Horizontal travel in a row, in px: the illustration goes further than the
+// text.
+const IMAGE_DISTANCE = 64;
+const TEXT_DISTANCE = 24;
 
 export function createFeaturePanelVariants({
   direction,
   layout,
-  isInstant = false,
-  imageDistance = 64,
-  textDistance = 24,
+  isInstant,
 }: FeaturePanelOptions) {
   const enter = isInstant ? instant : spring;
   const exit = isInstant ? instant : leave;
@@ -60,14 +59,14 @@ export function createFeaturePanelVariants({
     },
     image:
       layout === "row"
-        ? travel(imageDistance)
+        ? travel(IMAGE_DISTANCE)
         : {
             active: { opacity: [0, 1], scale: [0.96, 1], transition: enter },
             inactive: { opacity: 0, scale: 0.96, transition: exit },
           },
     text:
       layout === "row"
-        ? travel(textDistance)
+        ? travel(TEXT_DISTANCE)
         : {
             active: { opacity: [0, 1], y: [16, 0], transition: enter },
             inactive: { opacity: 0, transition: exit },

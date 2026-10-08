@@ -35,7 +35,7 @@ export default function FaqSection() {
       <Accordion
         value={openItems}
         onValueChange={setOpenItems}
-        render={<motion.div variants={staggerChildren({ step: 0.06 })} />}
+        render={<motion.div variants={staggerChildren(0.06)} />}
         className="-mt-1 md:mt-0.5 md:max-w-135"
       >
         {QUESTIONS.map(({ id, question, answer }) => (

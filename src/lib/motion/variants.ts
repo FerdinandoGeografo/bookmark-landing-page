@@ -17,33 +17,30 @@ export interface EnterOptions {
   x?: number;
   /** Vertical offset to start from, in px. Negative values start above. */
   y?: number;
-  /** Scale to start from. */
-  scale?: number;
   /** How the element reaches its place. */
   transition?: Transition;
 }
 
-/** Fades in while moving from an offset, or a scale, to its place. */
+/** Fades in while moving from an offset to its place. */
 export function enterFrom({
   x = 0,
   y = 0,
-  scale = 1,
   transition = spring,
-}: EnterOptions = {}): Variants {
+}: EnterOptions): Variants {
   return {
-    hidden: { opacity: 0, x, y, scale },
-    visible: { opacity: 1, x: 0, y: 0, scale: 1, transition },
+    hidden: { opacity: 0, x, y },
+    visible: { opacity: 1, x: 0, y: 0, transition },
   };
 }
 
-/** Rises into place from `distance` px below. */
-export function fadeUp(distance = 24) {
-  return enterFrom({ y: distance });
+/** Rises into place from 24px below. */
+export function fadeUp() {
+  return enterFrom({ y: 24 });
 }
 
-/** Drops into place from `distance` px above, quickly. */
-export function fadeDown(distance = 16) {
-  return enterFrom({ y: -distance, transition: quickSpring });
+/** Drops into place from 16px above, quickly. */
+export function fadeDown() {
+  return enterFrom({ y: -16, transition: quickSpring });
 }
 
 /** Slides in from `x` px: negative from the left, positive from the right. */
@@ -51,33 +48,22 @@ export function slideIn(x: number) {
   return enterFrom({ x });
 }
 
-/** Fades in without moving. */
-export function fadeIn(transition: Transition = slowFade): Variants {
+/** Fades in slowly without moving, for large surfaces such as the footer. */
+export function fadeIn(): Variants {
   return {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition },
+    visible: { opacity: 1, transition: slowFade },
   };
-}
-
-export interface StaggerOptions {
-  /** Seconds between two children. */
-  step?: number;
-  /** Seconds before the first child starts. */
-  delay?: number;
 }
 
 /**
  * For a parent with no animation of its own: its children run their
- * "visible" variants one after another, in document order.
+ * "visible" variants one after another, `step` seconds apart, in document
+ * order.
  */
-export function staggerChildren({
-  step = 0.08,
-  delay = 0,
-}: StaggerOptions = {}): Variants {
+export function staggerChildren(step = 0.08): Variants {
   return {
     hidden: {},
-    visible: {
-      transition: { delayChildren: stagger(step, { startDelay: delay }) },
-    },
+    visible: { transition: { delayChildren: stagger(step) } },
   };
 }

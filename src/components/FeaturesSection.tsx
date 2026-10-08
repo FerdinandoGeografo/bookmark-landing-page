@@ -46,7 +46,7 @@ export default function FeaturesSection() {
       <Tabs
         value={selected}
         onValueChange={select}
-        render={<motion.div variants={staggerChildren({ step: 0.1 })} />}
+        render={<motion.div variants={staggerChildren(0.1)} />}
       >
         <TabsList
           aria-labelledby="features-title"
