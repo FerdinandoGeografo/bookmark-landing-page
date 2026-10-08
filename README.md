@@ -7,6 +7,8 @@ This is a solution to the [Bookmark landing page challenge on Frontend Mentor](h
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   - [Page behaviour](#page-behaviour)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
@@ -29,13 +31,32 @@ Users should be able to:
 
 ### Page behaviour
 
-- The header stays pinned to the top and gains a soft shadow once the page scrolls; keyboard focus scrolls content into view below it.
-- Below 1024px the navigation moves into a full-screen menu that fades in with its rows one after another, traps focus, closes with Escape, returns focus to its button and closes by itself when the desktop layout kicks in.
-- Arrow keys move between the feature tabs, and Enter or Space opens one. In a row the indicator slides to the new tab and the content moves in its direction; stacked, the indicator grows under the tab and the content fades and rises. Every tab keeps the same size, so the page never jumps when switching.
+- The header stays pinned to the top and gains a soft shadow once the page scrolls; keyboard focus and section links scroll content into view below it.
+- Below 1024px the navigation moves into a full-screen menu that fades in with its rows one after another. It keeps focus inside, closes with Escape, returns focus to its button and closes by itself when the desktop layout kicks in.
+- Features and Contact, in the navigation and in the footer, scroll smoothly to their sections. From the mobile menu the page scrolls once the menu has closed, and Tab continues from the section.
+- Arrow keys move between the feature tabs, Enter or Space opens one, and Tab goes on to the button of the open panel. In a row the indicator slides to the new tab and the content moves in its direction; stacked, the indicator grows under the tab and the content fades and rises. Switching tabs never changes the height of the section.
 - The FAQ keeps one answer open at a time; answers slide open and closed, and the arrow turns.
-- The newsletter validates on submit only: an empty or invalid email shows an error that screen readers announce, and editing the field clears it. A valid email resets the form; there is no backend.
-- The header and the hero animate in on load. The other sections reveal once as they scroll into view, the browser cards dropping into their offsets one after another on wide screens; keyboard focus inside a section shows it at once. Reduced motion turns every animation off.
-- "Get it on…", "More Info", "Add & Install Extension" and Login open a notice explaining that the page is a demo. Navigation, footer and social links are placeholders that scroll back to the top, smoothly unless reduced motion is requested.
+- The newsletter validates on submit only: an empty or invalid email shows an error that screen readers announce and moves focus back to the field, and editing the field clears it. There is no backend, so a valid email opens a notice that repeats the address and explains that nothing was saved.
+- The header and the hero animate in on load. The other sections reveal once as they scroll into view, and the browser cards drop into their offsets one after another on wide screens. Keyboard focus inside a section shows it at once.
+- With reduced motion requested, elements appear in their final place without animating and section links jump instead of scrolling. The page follows the setting even when it changes while the page is open.
+- Pricing, Login, "Get it on…", "More Info" and "Add & Install Extension" open a notice explaining that the page is a demo. The social links are placeholders that lead back to the top.
+
+### Screenshot
+
+<!--
+  Capture the screenshots from the deployed build, once every animation has finished, and save them as:
+
+  ![Desktop](./screenshots/desktop.png)
+  ![Features, second tab | Desktop](./screenshots/features-desktop.png)
+  ![Mobile](./screenshots/mobile.png)
+  ![Menu | Mobile](./screenshots/mobile-menu.png)
+  ![Active states | Mobile](./screenshots/active-states-mobile.png)
+-->
+
+### Links
+
+- Solution URL: [GitHub Repository](https://github.com/FerdinandoGeografo/bookmark-landing-page)
+- Live Site URL: [Bookmark](https://bookmark-landing-page-fg.vercel.app/)
 
 ## My process
 
@@ -57,15 +78,11 @@ Users should be able to:
 
 ### What I learned
 
-`src/components` holds the page sections and the pieces they share, while `src/ui` keeps the shadcn/ui primitives, restyled with the design's palette. Content lives in `src/constants` and its types in `src/types`, so components only map data.
-
-#### One breakpoint for the layout
-
-The design provides 375px and 1440px frames. Typography switches at `md` (768px), but the rows wait for `lg` (1024px): the three 280px browser cards and their gaps alone need 920px. Between 1024px and 1440px the hero gutters and the illustrations scale proportionally and stop at their 1440px values.
+`src/components` holds the page sections and the pieces they share, while `src/ui` keeps the shadcn/ui primitives, restyled with the design's palette. Content lives in `src/constants` and its types in `src/types`, so components only map data. The layout has one real breakpoint, `lg` (1024px): the three 280px browser cards and their gaps alone need 920px.
 
 #### A decoration that scales with its image
 
-Each illustration sits on a blue pill that leaves the viewport. Instead of a set of breakpoint classes, `ImageDecoration` interpolates every measurement between the two frames, using the image box width as the variable, and clamps it to the frame values:
+Each illustration sits on a blue pill that leaves the viewport. Instead of a set of breakpoint classes, `ImageDecoration` interpolates every measurement between the 375px and 1440px frames, using the image box width as the variable, and clamps it to the frame values:
 
 ```ts
 function fluid(
@@ -81,11 +98,11 @@ function fluid(
 }
 ```
 
-The results become custom properties on the box (`--pill-width`, `--pill-top`...), and an `::after` pseudo-element reads them, so the pill matches the design at 375px and 1440px and moves smoothly in between.
+The results become custom properties on the box (`--pill-width`, `--pill-top`...), and an `::after` pseudo-element reads them.
 
 #### Tabs that never move the page
 
-The three feature illustrations have different sizes. As in the design frames, every tab keeps the box of the first one: the other illustrations start at the same top and the taller ones overflow it downwards, while the text stays in place. All panels stay mounted and share one grid cell, so the descriptions, which wrap differently on small screens, cannot change the height either. Base UI marks the inactive panels as `inert`, which keeps them out of the tab order and away from screen readers:
+The three feature illustrations have different sizes. As in the design frames, every tab keeps the box of the first one, and all panels stay mounted in one grid cell, so neither the images nor the descriptions can change the height:
 
 ```tsx
 <div className="grid *:col-start-1 *:row-start-1">
@@ -95,7 +112,7 @@ The three feature illustrations have different sizes. As in the design frames, e
       value={feature.id}
       keepMounted
       hidden={false}
-      className="data-hidden:invisible"
+      className="transition-[visibility] data-hidden:invisible data-hidden:delay-250"
     >
       {/* ... */}
     </TabsContent>
@@ -103,80 +120,63 @@ The three feature illustrations have different sizes. As in the design frames, e
 </div>
 ```
 
-#### One dialog for every placeholder action
+Base UI makes the previous panel `inert` as soon as the tab changes, so it leaves the tab order at once, while CSS hides it only after its content has animated out.
 
-The calls to action have no real destination. A single dialog is rendered once, and a Base UI handle connects it to triggers anywhere on the page, so each trigger gets focus back when the notice closes:
+#### Reveals that never hide content
 
-```tsx
-export const demoDialog = Dialog.createHandle();
+A section becomes a reveal group by spreading `useReveal()` on a `motion` element, or through the `Reveal` component built on it. Its children follow with presets such as `fadeUp()`. A few details made it reliable:
 
-export default function DemoButton({
-  children,
-  ...props
-}: ComponentProps<typeof Button>) {
-  return (
-    <DialogTrigger handle={demoDialog} render={<Button {...props} />}>
-      {children}
-    </DialogTrigger>
-  );
+```ts
+function reveal() {
+  if (isRevealedRef.current) return;
+  isRevealedRef.current = true;
+  controls.start("visible");
+}
+
+function showAtOnce() {
+  isRevealedRef.current = true;
+  controls.start("visible", { duration: 0 });
 }
 ```
 
-The mobile menu reuses the same dialog primitive. Its Login button closes the menu first and opens the notice once the closing has finished.
+- The reveal starts when an element passes a 48px band at the bottom of the viewport (`amount: "some"` with a negative bottom margin). A share of the element would not do: at 400% zoom, 20% of a tall section is taller than the screen, and the section stayed invisible.
+- Motion calls `onViewportEnter` again every time a `once` element comes back into view, so the ref keeps the reveal from replaying.
+- `showAtOnce` runs on `onFocusCapture`. The transition passed to `start` replaces the one of the variants, delays and stagger included, and reaches every child, so a control reached with Tab is visible at once.
 
-#### Animations that end on the design
+#### Placement and entrance on separate elements
 
-Every animation moves only opacity and transforms, or the height of an answer that changes anyway, so once it ends the page is the one of the design. The pieces are split by role:
-
-- `src/lib/motion/transitions.ts` holds the shared timings (`spring`, `quickSpring`, `leave`, `resize`, `instant`...).
-- `src/lib/motion/variants.ts` holds configurable entrance presets with two states, `hidden` and `visible`, such as `fadeUp(distance)`, `slideIn(x)` or `enterFrom({ y: -40 })`.
-- Choreographies with more parts are factories with options, such as `createFeaturePanelVariants({ direction, layout })` for the tab switch.
-- Hooks hold the reusable behaviour: `useReveal`, `useReducedTransition`, `useDirectionalSelection`, `useMediaQuery` and `useHasScrolled`.
-
-A section becomes a reveal group by spreading `useReveal()` on a `motion` element, or through the `Reveal` component built on it. It plays once, when the group enters the viewport, and a focus event inside it shows the final state at once, so keyboard users never land on an invisible element:
+On wide screens the browser cards sit 0, 40 and 80px lower than each other, and they also drop into place. The offset belongs to the list item and the entrance to the card inside it, so the final layout does not depend on the animation and stays the same with reduced motion:
 
 ```tsx
-// Simplified from FaqSection: the heading and the button rise in turn.
-<Reveal as="section" id="faq">
-  <HeadingBox title="Frequently Asked Questions" description="…" />
-  <motion.div variants={fadeUp()}>
-    <DemoButton>More Info</DemoButton>
-  </motion.div>
-</Reveal>
+<li style={cardOffset(index)} className="lg:translate-y-(--card-offset)">
+  <Reveal variants={cardEntrance(isDesktop, index)}>
+    <BrowserItem browser={browser} />
+  </Reveal>
+</li>
 ```
 
-The browser cards keep their 0/40/80px offsets on the list items, while Motion moves the cards inside them, so the two transforms never share an element. The feature panels stay mounted in their grid cell: Base UI makes an inactive panel inert at once, and CSS hides it with a short `visibility` delay, after its content has animated out. `MotionConfig reducedMotion="user"` turns transforms off for people who ask for reduced motion, and `useReducedMotion` skips fades and delays too.
-
-#### Design measures as tokens
-
-Text styles measured in the frames are Tailwind text presets that set size, line height and letter spacing together, such as `text-link` or `text-eyebrow`, and `tailwind-merge` is told they are font sizes. Lengths that shrink below the 1440px frame use small utilities instead of inline `min()` expressions: `lg:pl-fluid-165` is 165px at 1440px and scales down with the viewport.
-
-```css
-@utility pl-fluid-* {
-  padding-left: min(
-    calc(--value(integer) * 100vw / 1440),
-    calc(--value(integer) * 1px)
-  );
-}
-```
+The list renders the same elements on both sides of the breakpoint and only the entrance changes, so resizing or zooming keeps a focused card focused and a revealed card visible.
 
 #### Small details
 
-- With Tailwind CSS 4, `outline-none` sets the outline style to `none`, so `focus-visible:outline-2` alone shows nothing. Links get their focus outline from a base rule instead, and buttons use a ring.
-- The header shadow reads the scroll position through `useSyncExternalStore`, which re-renders only when the page leaves or returns to the top.
-- `overflow-x-clip` hides the decorations that leave the viewport without breaking the sticky header, as `overflow-x-hidden` would.
+- With Tailwind CSS 4, `outline-none` sets the outline style to `none`, so `focus-visible:outline-2` alone shows nothing. Links get their focus outline from a base rule instead, the buttons that look like links (Pricing) repeat it with `focus-visible:outline-*` utilities, and the other buttons use a ring.
+- One demo dialog serves every notice: triggers pass a payload through a Base UI handle, and the newsletter opens it with `demoDialog.openWithPayload({ kind: "newsletter", email })`.
+- Motion's `useReducedMotion` reads the preference once, so a small `usePrefersReducedMotion` hook built on `useSyncExternalStore` and `matchMedia` follows it instead.
+- The header shadow reads the scroll position through `useSyncExternalStore`: scrolling down the whole page re-renders the header once, when it leaves the top.
+- The hero illustration declares its size, so the text beside it does not move when it loads.
+- The scrollbar is thin and takes the primary blue through `scrollbar-color` and `scrollbar-width`, which the mobile menu inherits.
 
 ### Useful resources
 
-- [Base UI Dialog](https://base-ui.com/react/components/dialog) - Detached triggers through `Dialog.createHandle()`.
+- [Base UI Dialog](https://base-ui.com/react/components/dialog) - Detached triggers and payloads through `Dialog.createHandle()`.
 - [Base UI Tabs](https://base-ui.com/react/components/tabs) - `keepMounted` panels and keyboard activation.
 - [shadcn/ui for Base UI](https://ui.shadcn.com/docs/components) - The primitives behind `src/ui`.
 - [Tailwind CSS v4](https://tailwindcss.com/docs/theme) - Theme variables and custom properties in arbitrary values.
-- [CSS clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) - The fluid measurements of the decorations.
-- [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore) - Subscribing to the scroll position.
-- [Motion for React](https://motion.dev/docs/react) - Variants, `whileInView` triggers, `AnimatePresence` and layout animations.
-- [Motion and Base UI](https://motion.dev/docs/base-ui) - Animating Base UI parts through their `render` prop, exits included.
 - [Tailwind CSS functional utilities](https://tailwindcss.com/docs/adding-custom-styles#functional-utilities) - The `--value()` syntax behind the fluid utilities.
+- [CSS clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) - The fluid measurements of the decorations.
+- [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore) - Subscribing to the scroll position and the media queries.
+- [Motion for React](https://motion.dev/docs/react) - Variants, viewport triggers, `AnimatePresence` and layout animations.
+- [Motion and Base UI](https://motion.dev/docs/base-ui) - Animating Base UI parts through their `render` prop, exits included.
 - [ARIA Authoring Practices: Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) and [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) - The keyboard patterns of the features and the FAQ.
 
 ### AI Collaboration
@@ -184,8 +184,9 @@ Text styles measured in the frames are Tailwind text presets that set size, line
 I used Claude, through Claude Code, as a pair programmer for the review, the responsive layout and the accessibility polish, while keeping the decisions and the testing on my side.
 
 - **Planning first**: the work started from a review of the existing code and a plan split into phases (interactions and accessibility, responsive layout, refactoring, assets, animations), each closed with small commits I tested locally.
-- **Reviews**: audits of keyboard navigation, focus states, the mobile menu and the newsletter feedback, plus hunts for unused styles and dependencies. Scripted browser runs, kept outside the repository, checked the layout and the interactions at several viewports before and after each change, and that every animation ends on the same layout.
-- **Context in local files**: an `AGENTS.md` with the working rules for any coding agent, and a list of the points still open for the next review.
+- **Reviews**: audits of keyboard navigation, focus states, the mobile menu, reduced motion and the newsletter feedback, plus hunts for unused styles and dependencies. A final review after the first deploy checked the hooks and the Motion integration against the installed library sources.
+- **Scripted browser runs**, kept outside the repository, checked the layout and the interactions at several viewports: rapid tab switches, repeated FAQ toggles, keyboard focus before the reveals, layout shift on load and the breakpoint changes.
+- **Context in local files**: an `AGENTS.md` with the working rules for any coding agent, and notes on the stack, the design measurements and the motion requirements.
 
 ## Author
 
