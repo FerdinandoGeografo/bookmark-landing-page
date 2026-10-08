@@ -132,7 +132,6 @@
     height: 1px;
     background-color: currentColor;
     scale: 0 1;
-    transform-origin: left;
     transition: scale 300ms ease-out;
   }
 
