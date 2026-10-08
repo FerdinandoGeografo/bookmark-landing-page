@@ -9,7 +9,6 @@ import Navigation from "./Navigation";
 
 export default function Header() {
   const hasScrolled = useHasScrolled();
-  // Always in the viewport, so the reveal plays as soon as the page loads.
   const reveal = useReveal();
 
   return (

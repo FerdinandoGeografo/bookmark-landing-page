@@ -82,7 +82,7 @@ Users should be able to:
 
 #### A decoration that scales with its image
 
-Each illustration sits on a blue pill that leaves the viewport. Instead of a set of breakpoint classes, `ImageDecoration` interpolates every measurement between the 375px and 1440px frames, using the image box width as the variable, and clamps it to the frame values:
+Each illustration sits on a blue pill that leaves the viewport. Instead of a set of breakpoint classes, `ImageDecoration` interpolates every measurement between frames, using the image box width as the variable, and clamps it to the max and min values:
 
 ```ts
 function fluid(
@@ -102,7 +102,7 @@ The results become custom properties on the box (`--pill-width`, `--pill-top`...
 
 #### Tabs that never move the page
 
-The three feature illustrations have different sizes. As in the design frames, every tab keeps the box of the first one, and all panels stay mounted in one grid cell, so neither the images nor the descriptions can change the height:
+The three feature illustrations have different sizes. Every tab keeps the box of the first one, and all panels stay mounted in one grid cell, so neither the images nor the descriptions can change the height:
 
 ```tsx
 <div className="grid *:col-start-1 *:row-start-1">

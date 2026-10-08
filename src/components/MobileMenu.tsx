@@ -28,11 +28,11 @@ const iconButtonClassName =
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
-  // Action to run once the menu has finished closing.
+
   const afterCloseRef = useRef<(() => void) | null>(null);
-  // Whether closing gives focus back to the menu button.
   const returnsFocusRef = useRef(true);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
   const variants = createMobileMenuVariants(usePrefersReducedMotion());
 
   // Close the menu when the viewport grows into the desktop layout.
@@ -44,8 +44,6 @@ export default function MobileMenu() {
     setOpen(false);
   }
 
-  // Navigate once the menu has closed, or the scroll lock would swallow the
-  // scroll. Focus stays off the menu button, so Tab continues from the section.
   function handleLinkClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     const { href } = event.currentTarget;
@@ -53,8 +51,6 @@ export default function MobileMenu() {
     closeThen(() => window.location.assign(href));
   }
 
-  // Pricing and Login swap the menu for the demo notice. Focusing the menu
-  // button first gives the notice a place to return focus to.
   function handleDemoClick() {
     closeThen(() => {
       triggerRef.current?.focus();

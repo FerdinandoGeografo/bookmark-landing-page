@@ -1,11 +1,6 @@
 import { stagger, type Transition, type Variants } from "motion/react";
 import { quickSpring, slowFade, spring } from "./transitions";
 
-/*
- * Entrance presets from "hidden" to "visible", the design layout, using only
- * opacity and transforms. A parent such as `useReveal` switches the label.
- */
-
 export interface EnterOptions {
   /** Horizontal offset to start from, in px. */
   x?: number;

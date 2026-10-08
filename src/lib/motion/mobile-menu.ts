@@ -3,11 +3,10 @@ import { fade, instant, quickSpring } from "./transitions";
 
 /*
  * Mobile menu: the overlay fades in, then its rows rise 12px in turn; it fades
- * out as a whole. With `isInstant` (reduced motion) it switches at once.
+ * out as a whole. With reduced motion it switches at once.
  */
 export function createMobileMenuVariants(isInstant: boolean) {
   return {
-    /** The full-screen popup. */
     popup: {
       hidden: { opacity: 0, transition: isInstant ? instant : fade },
       visible: {
@@ -18,7 +17,6 @@ export function createMobileMenuVariants(isInstant: boolean) {
         },
       },
     },
-    /** Each row: logo and close button, links, Login, social links. */
     row: {
       hidden: { opacity: 0, y: 12 },
       visible: {

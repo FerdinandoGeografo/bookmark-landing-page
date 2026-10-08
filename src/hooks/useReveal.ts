@@ -20,8 +20,6 @@ export function useReveal() {
 
   function showAtOnce() {
     isRevealedRef.current = true;
-    // Keyboard focus shows the final state at once: the override also replaces
-    // the descendants' delays and stagger.
     controls.start("visible", { duration: 0 });
   }
 

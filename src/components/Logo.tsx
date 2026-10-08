@@ -1,5 +1,3 @@
-// Fills per background: dark (header), light (footer), inverted (mobile menu,
-// where the bookmark takes the overlay color).
 const VARIANTS = {
   dark: { text: "fill-blue-950", badge: "fill-blue-600", mark: "fill-white" },
   light: { text: "fill-white", badge: "fill-blue-600", mark: "fill-white" },
