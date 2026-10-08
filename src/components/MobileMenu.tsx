@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useRef, useState, type MouseEvent } from "react";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { LINKS } from "@/constants/links";
 import { demoDialog } from "@/lib/demo-dialog";
 import { cn } from "@/lib/utils";
@@ -25,17 +26,8 @@ export default function MobileMenu() {
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Close the menu when the viewport grows into the desktop layout.
-  useEffect(() => {
-    if (!open) return;
-
-    const query = window.matchMedia(DESKTOP_QUERY);
-    const handleChange = (event: MediaQueryListEvent) => {
-      if (event.matches) setOpen(false);
-    };
-
-    query.addEventListener("change", handleChange);
-    return () => query.removeEventListener("change", handleChange);
-  }, [open]);
+  const isDesktop = useMediaQuery(DESKTOP_QUERY);
+  if (open && isDesktop) setOpen(false);
 
   function closeThen(action: () => void) {
     afterCloseRef.current = action;

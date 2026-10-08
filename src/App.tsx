@@ -7,23 +7,26 @@ import NewsletterSection from "./components/NewsletterSection";
 import Footer from "./components/Footer";
 import IconSprite from "./components/IconSprite";
 import DemoDialog from "./components/DemoDialog";
+import MotionProvider from "./components/MotionProvider";
 
 export default function App() {
   return (
-    <div className="min-h-screen overflow-x-clip">
-      <IconSprite />
-      <Header />
+    <MotionProvider>
+      <div className="min-h-screen overflow-x-clip">
+        <IconSprite />
+        <Header />
 
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-        <DownloadSection />
-        <FaqSection />
-        <NewsletterSection />
-      </main>
+        <main>
+          <HeroSection />
+          <FeaturesSection />
+          <DownloadSection />
+          <FaqSection />
+          <NewsletterSection />
+        </main>
 
-      <Footer />
-      <DemoDialog />
-    </div>
+        <Footer />
+        <DemoDialog />
+      </div>
+    </MotionProvider>
   );
 }
