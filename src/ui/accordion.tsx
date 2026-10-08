@@ -40,6 +40,8 @@ function AccordionTrigger({
   children,
   ...props
 }: AccordionPrimitive.Trigger.Props & OpenProps) {
+  const transition = useReducedTransition(quickSpring);
+
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -54,7 +56,7 @@ function AccordionTrigger({
         <motion.span
           initial={false}
           animate={{ rotate: open ? 180 : 0 }}
-          transition={quickSpring}
+          transition={transition}
           className="mt-1.75 flex shrink-0 md:mt-2 md:mr-5.75"
         >
           <Icon
@@ -75,7 +77,7 @@ function AccordionContent({
   children,
   ...props
 }: AccordionPrimitive.Panel.Props & OpenProps) {
-  // Height is not a transform: MotionConfig would keep animating it.
+  // MotionConfig would make the height jump but keep the fade.
   const transition = useReducedTransition(resize);
 
   return (

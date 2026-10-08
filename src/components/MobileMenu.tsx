@@ -1,8 +1,9 @@
 import { useRef, useState, type MouseEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { LINKS } from "@/constants/links";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { demoDialog } from "@/lib/demo-dialog";
 import { createMobileMenuVariants } from "@/lib/motion/mobile-menu";
 import { fadeIn } from "@/lib/motion/variants";
@@ -28,7 +29,7 @@ export default function MobileMenu() {
   const afterCloseRef = useRef<(() => void) | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const variants = createMobileMenuVariants({
-    isInstant: Boolean(useReducedMotion()),
+    isInstant: usePrefersReducedMotion(),
   });
 
   // Close the menu when the viewport grows into the desktop layout.

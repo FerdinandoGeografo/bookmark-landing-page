@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { useAnimationControls, useReducedMotion } from "motion/react";
+import { useAnimationControls } from "motion/react";
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 
 /**
  * Motion props that reveal an element once, the first time it enters the
@@ -16,7 +17,7 @@ import { useAnimationControls, useReducedMotion } from "motion/react";
  * - Elements already in the viewport on load play as an entrance.
  */
 export function useReveal() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const controls = useAnimationControls();
   const isRevealedRef = useRef(false);
 

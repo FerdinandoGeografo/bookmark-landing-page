@@ -1,8 +1,9 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { FEATURES } from "@/constants/features";
 import { useDirectionalSelection } from "@/hooks/useDirectionalSelection";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { createFeaturePanelVariants } from "@/lib/motion/feature-panels";
 import { fadeUp, staggerChildren } from "@/lib/motion/variants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
@@ -21,10 +22,12 @@ export default function FeaturesSection() {
   // One source of truth for Base UI and the animation: the selected tab and
   // the direction it was reached from.
   const { selected, direction, select } = useDirectionalSelection(FEATURE_IDS);
+  const isDesktop = useMediaQuery(DESKTOP_QUERY);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const variants = createFeaturePanelVariants({
     direction,
-    layout: useMediaQuery(DESKTOP_QUERY) ? "row" : "column",
-    isInstant: Boolean(useReducedMotion()),
+    layout: isDesktop ? "row" : "column",
+    isInstant: prefersReducedMotion,
   });
 
   return (

@@ -3,6 +3,7 @@ import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { LayoutGroup, motion } from "motion/react";
 import { TABLET_QUERY } from "@/constants/breakpoints";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useReducedTransition } from "@/hooks/useReducedTransition";
 import { quickSpring } from "@/lib/motion/transitions";
 import { cn } from "@/lib/utils";
 
@@ -39,20 +40,21 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
  * between, so the bar grows from the centre of the new tab instead.
  */
 function TabIndicator({ slides }: { slides: boolean }) {
+  const transition = useReducedTransition(quickSpring);
   const className =
     "absolute inset-x-2.25 bottom-0 h-1 bg-red-400 md:inset-x-0";
 
   return slides ? (
     <motion.span
       layoutId="tabs-indicator"
-      transition={quickSpring}
+      transition={transition}
       className={className}
     />
   ) : (
     <motion.span
       initial={{ scaleX: 0 }}
       animate={{ scaleX: 1 }}
-      transition={quickSpring}
+      transition={transition}
       className={className}
     />
   );
@@ -83,6 +85,8 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
   );
 }
 
+// The panel is not interactive: unlike Base UI's default, it stays out of the
+// tab order, and Tab goes from the tab list to the panel's own button.
 function TabsContent(props: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel data-slot="tabs-content" tabIndex={-1} {...props} />
