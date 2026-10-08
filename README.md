@@ -30,10 +30,11 @@ Users should be able to:
 ### Page behaviour
 
 - The header stays pinned to the top and gains a soft shadow once the page scrolls; keyboard focus scrolls content into view below it.
-- Below 1024px the navigation moves into a full-screen menu that traps focus, closes with Escape, returns focus to its button and closes by itself when the desktop layout kicks in.
-- Arrow keys move between the feature tabs, and Enter or Space opens one. Every tab keeps the size of the largest illustration, so the page never jumps when switching.
-- The FAQ keeps one answer open at a time, and its arrow turns when an answer opens.
+- Below 1024px the navigation moves into a full-screen menu that fades in with its rows one after another, traps focus, closes with Escape, returns focus to its button and closes by itself when the desktop layout kicks in.
+- Arrow keys move between the feature tabs, and Enter or Space opens one. In a row the indicator slides to the new tab and the content moves in its direction; stacked, the indicator grows under the tab and the content fades and rises. Every tab keeps the same size, so the page never jumps when switching.
+- The FAQ keeps one answer open at a time; answers slide open and closed, and the arrow turns.
 - The newsletter validates on submit only: an empty or invalid email shows an error that screen readers announce, and editing the field clears it. A valid email resets the form; there is no backend.
+- The header and the hero animate in on load. The other sections reveal once as they scroll into view, the browser cards dropping into their offsets one after another on wide screens; keyboard focus inside a section shows it at once. Reduced motion turns every animation off.
 - "Get it on…", "More Info", "Add & Install Extension" and Login open a notice explaining that the page is a demo. Navigation, footer and social links are placeholders that scroll back to the top, smoothly unless reduced motion is requested.
 
 ## My process
@@ -52,6 +53,7 @@ Users should be able to:
 - [Tailwind CSS (v4)](https://tailwindcss.com/) - For styles, with the design tokens in `src/index.css`
 - [Base UI](https://base-ui.com/) - Unstyled, accessible components (tabs, accordion, dialog)
 - [shadcn/ui](https://ui.shadcn.com/) - Component primitives in the `base-nova` style, with [class-variance-authority](https://cva.style/) for variants
+- [Motion](https://motion.dev/) - Entrance, reveal and component animations
 
 ### What I learned
 
@@ -122,6 +124,25 @@ export default function DemoButton({
 
 The mobile menu reuses the same dialog primitive. Its Login button closes the menu first and opens the notice once the closing has finished.
 
+#### Animations that end on the design
+
+Every animation moves only opacity and transforms, or the height of an answer that changes anyway, so once it ends the page is the one of the design. Sections reveal through a `Reveal` wrapper: its children play their variants once, when the group enters the viewport, and a focus event inside it shows the final state at once, so keyboard users never land on an invisible element:
+
+```tsx
+function reveal() {
+  if (isRevealedRef.current) return;
+  isRevealedRef.current = true;
+  controls.start("visible");
+}
+
+function show() {
+  isRevealedRef.current = true;
+  controls.start("visible", { duration: 0 });
+}
+```
+
+The browser cards keep their 0/40/80px offsets on the list items, while Motion moves the cards inside them, so the two transforms never share an element. The feature panels stay mounted in their grid cell: Base UI makes an inactive panel inert at once, and CSS hides it with a short `visibility` delay, after its content has animated out. The animation features load in a separate chunk through `LazyMotion`, and `MotionConfig reducedMotion="user"` plus `useReducedMotion` turn movement, delays and fades off when requested.
+
 #### Small details
 
 - With Tailwind CSS 4, `outline-none` sets the outline style to `none`, so `focus-visible:outline-2` alone shows nothing. Links get their focus outline from a base rule instead, and buttons use a ring.
@@ -136,14 +157,17 @@ The mobile menu reuses the same dialog primitive. Its Login button closes the me
 - [Tailwind CSS v4](https://tailwindcss.com/docs/theme) - Theme variables and custom properties in arbitrary values.
 - [CSS clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) - The fluid measurements of the decorations.
 - [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore) - Subscribing to the scroll position.
+- [Motion for React](https://motion.dev/docs/react) - Variants, `whileInView` triggers, `AnimatePresence` and layout animations.
+- [Motion and Base UI](https://motion.dev/docs/base-ui) - Animating Base UI parts through their `render` prop, exits included.
+- [Reduce bundle size](https://motion.dev/docs/react-reduce-bundle-size) - `LazyMotion` with features loaded on demand.
 - [ARIA Authoring Practices: Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) and [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) - The keyboard patterns of the features and the FAQ.
 
 ### AI Collaboration
 
 I used Claude, through Claude Code, as a pair programmer for the review, the responsive layout and the accessibility polish, while keeping the decisions and the testing on my side.
 
-- **Planning first**: the work started from a review of the existing code and a plan split into phases (interactions and accessibility, responsive layout, refactoring, assets), each closed with small commits I tested locally.
-- **Reviews**: audits of keyboard navigation, focus states, the mobile menu and the newsletter feedback, plus hunts for unused styles and dependencies. Scripted browser runs, kept outside the repository, checked the layout and the interactions at several viewports before and after each change.
+- **Planning first**: the work started from a review of the existing code and a plan split into phases (interactions and accessibility, responsive layout, refactoring, assets, animations), each closed with small commits I tested locally.
+- **Reviews**: audits of keyboard navigation, focus states, the mobile menu and the newsletter feedback, plus hunts for unused styles and dependencies. Scripted browser runs, kept outside the repository, checked the layout and the interactions at several viewports before and after each change, and that every animation ends on the same layout.
 - **Context in local files**: an `AGENTS.md` with the working rules for any coding agent, and a list of the points still open for the next review.
 
 ## Author
