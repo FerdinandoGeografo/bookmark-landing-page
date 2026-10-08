@@ -1,11 +1,11 @@
 import type { PropsWithChildren } from "react";
 import { motion, type Variants } from "motion/react";
-import { useReveal, type RevealOptions } from "@/hooks/useReveal";
+import { useReveal } from "@/hooks/useReveal";
 import { staggerChildren } from "@/lib/motion/variants";
 
 const ELEMENTS = { div: motion.div, section: motion.section, ul: motion.ul };
 
-interface RevealProps extends RevealOptions {
+interface RevealProps {
   as?: keyof typeof ELEMENTS;
   id?: string;
   "aria-labelledby"?: string;
@@ -25,11 +25,10 @@ interface RevealProps extends RevealOptions {
 export default function Reveal({
   as = "div",
   variants = staggerChildren(),
-  amount,
   children,
   ...props
 }: PropsWithChildren<RevealProps>) {
-  const reveal = useReveal({ amount });
+  const reveal = useReveal();
   const Element = ELEMENTS[as];
 
   return (
