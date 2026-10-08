@@ -43,15 +43,10 @@ Users should be able to:
 
 ### Screenshot
 
-<!--
-  Capture the screenshots from the deployed build, once every animation has finished, and save them as:
-
-  ![Desktop](./screenshots/desktop.png)
-  ![Features, second tab | Desktop](./screenshots/features-desktop.png)
-  ![Mobile](./screenshots/mobile.png)
-  ![Menu | Mobile](./screenshots/mobile-menu.png)
-  ![Active states | Mobile](./screenshots/active-states-mobile.png)
--->
+![Desktop](./screenshots/desktop.png)
+![Mobile](./screenshots/mobile.png)
+![Menu | Mobile](./screenshots/mobile-menu.png)
+![Active states | Mobile](./screenshots/mobile-active-states.png)
 
 ### Links
 
@@ -66,8 +61,6 @@ Users should be able to:
 - CSS custom properties and `clamp()`
 - Flexbox and CSS Grid
 - Mobile-first workflow
-- Self-hosted Rubik fonts, subset to Latin and served as `woff2`
-- An inline SVG sprite with the icons provided by the challenge
 - [React (v19)](https://react.dev/) - JS library, with the [React Compiler](https://react.dev/learn/react-compiler)
 - [TypeScript](https://www.typescriptlang.org/) - JS superset, in strict mode
 - [Vite](https://vite.dev/) - Frontend build tool
@@ -78,7 +71,8 @@ Users should be able to:
 
 ### What I learned
 
-`src/components` holds the page sections and the pieces they share, while `src/ui` keeps the shadcn/ui primitives, restyled with the design's palette. Content lives in `src/constants` and its types in `src/types`, so components only map data. The layout has one real breakpoint, `lg` (1024px): the three 280px browser cards and their gaps alone need 920px.
+`src/components` holds the page sections and the pieces they share, while `src/ui` keeps the shadcn/ui primitives, restyled with the design's palette.
+Content lives in `src/constants` and its types in `src/types`, so components only map data. The layout has one real breakpoint, `lg` (1024px).
 
 #### A decoration that scales with its image
 
@@ -159,7 +153,6 @@ The list renders the same elements on both sides of the breakpoint and only the 
 
 #### Small details
 
-- With Tailwind CSS 4, `outline-none` sets the outline style to `none`, so `focus-visible:outline-2` alone shows nothing. Links get their focus outline from a base rule instead, the buttons that look like links (Pricing) repeat it with `focus-visible:outline-*` utilities, and the other buttons use a ring.
 - One demo dialog serves every notice: triggers pass a payload through a Base UI handle, and the newsletter opens it with `demoDialog.openWithPayload({ kind: "newsletter", email })`.
 - Motion's `useReducedMotion` reads the preference once, so a small `usePrefersReducedMotion` hook built on `useSyncExternalStore` and `matchMedia` follows it instead.
 - The header shadow reads the scroll position through `useSyncExternalStore`: scrolling down the whole page re-renders the header once, when it leaves the top.
@@ -185,7 +178,6 @@ I used Claude, through Claude Code, as a pair programmer for the review, the res
 
 - **Planning first**: the work started from a review of the existing code and a plan split into phases (interactions and accessibility, responsive layout, refactoring, assets, animations), each closed with small commits I tested locally.
 - **Reviews**: audits of keyboard navigation, focus states, the mobile menu, reduced motion and the newsletter feedback, plus hunts for unused styles and dependencies. A final review after the first deploy checked the hooks and the Motion integration against the installed library sources.
-- **Scripted browser runs**, kept outside the repository, checked the layout and the interactions at several viewports: rapid tab switches, repeated FAQ toggles, keyboard focus before the reveals, layout shift on load and the breakpoint changes.
 - **Context in local files**: an `AGENTS.md` with the working rules for any coding agent, and notes on the stack, the design measurements and the motion requirements.
 
 ## Author
