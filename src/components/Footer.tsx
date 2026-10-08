@@ -5,13 +5,12 @@ import NavLink from "./NavLink";
 import Reveal from "./Reveal";
 import SocialLinks from "./SocialLinks";
 
-// Fades in as a whole once it scrolls into view.
 export default function Footer() {
   return (
     <footer className="flex bg-blue-950">
       <Reveal
         variants={fadeIn()}
-        className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:h-22 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-0"
+        className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:grid lg:grid-cols-[auto_auto_1fr] lg:grid-rows-[--spacing(22)_auto] lg:gap-x-16.25 lg:gap-y-0 lg:px-41.25 lg:py-0"
       >
         <a
           href="#"
@@ -34,7 +33,20 @@ export default function Footer() {
           ))}
         </nav>
 
-        <SocialLinks className="mt-2.25 lg:mt-0 lg:ml-auto" />
+        <p className="text-link-lg lg:text-link text-white/50 uppercase lg:col-span-full lg:row-start-2 lg:border-t lg:border-white/10 lg:py-6 lg:text-center">
+          Coded by{" "}
+          <a
+            href="https://github.com/FerdinandoGeografo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline text-white transition-colors duration-300 hover:text-red-400"
+          >
+            Ferdinando Geografo
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </p>
+
+        <SocialLinks className="mt-2.25 lg:col-start-3 lg:row-start-1 lg:mt-0 lg:justify-self-end" />
       </Reveal>
     </footer>
   );
