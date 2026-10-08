@@ -20,6 +20,9 @@ import Icon from "./Icon";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
 
+const menuLinkClassName =
+  "text-menu block pt-5 pb-5.25 text-center uppercase transition-colors duration-300 hover:text-red-400";
+
 const iconButtonClassName =
   "-m-3 flex rounded-sm p-3 outline-none focus-visible:ring-2 focus-visible:ring-red-400";
 
@@ -27,6 +30,8 @@ export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   // Action to run once the menu has finished closing.
   const afterCloseRef = useRef<(() => void) | null>(null);
+  // Whether closing gives focus back to the menu button.
+  const returnsFocusRef = useRef(true);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const variants = createMobileMenuVariants(usePrefersReducedMotion());
 
@@ -39,16 +44,19 @@ export default function MobileMenu() {
     setOpen(false);
   }
 
-  // Links are placeholders that lead back to the top. Scroll only once the
-  // dialog has closed, so the scroll lock does not swallow the movement.
+  // Follow a section link only once the dialog has closed, so the scroll
+  // lock does not swallow the movement. Focus stays off the menu button, so
+  // the next Tab continues from the section, as after a link outside the menu.
   function handleLinkClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
-    closeThen(() => window.scrollTo({ top: 0 }));
+    const { href } = event.currentTarget;
+    returnsFocusRef.current = false;
+    closeThen(() => window.location.assign(href));
   }
 
-  // Login has no destination: swap the menu for the demo notice. Focusing the
-  // menu button first gives the notice a place to return focus to.
-  function handleLoginClick() {
+  // Pricing and Login have no destination: swap the menu for the demo notice.
+  // Focusing the menu button first gives the notice a place to return focus to.
+  function handleDemoClick() {
     closeThen(() => {
       triggerRef.current?.focus();
       demoDialog.openWithPayload(ACTION_NOTICE);
@@ -56,7 +64,10 @@ export default function MobileMenu() {
   }
 
   function handleOpenChangeComplete(isOpen: boolean) {
-    if (isOpen) return;
+    if (isOpen) {
+      returnsFocusRef.current = true;
+      return;
+    }
 
     afterCloseRef.current?.();
     afterCloseRef.current = null;
@@ -81,6 +92,7 @@ export default function MobileMenu() {
         {open && (
           <DialogPortal keepMounted>
             <DialogPopup
+              finalFocus={() => returnsFocusRef.current}
               render={
                 <motion.div
                   variants={variants.popup}
@@ -110,24 +122,37 @@ export default function MobileMenu() {
                 <ul className="border-t border-white/15">
                   {LINKS.map((link) => (
                     <motion.li
-                      key={link}
+                      key={link.label}
                       variants={variants.row}
                       className="border-b border-white/15"
                     >
-                      <a
-                        href="#"
-                        onClick={handleLinkClick}
-                        className="text-menu block pt-5 pb-5.25 text-center uppercase transition-colors duration-300 hover:text-red-400"
-                      >
-                        <span className="link-underline">{link}</span>
-                      </a>
+                      {link.href ? (
+                        <a
+                          href={link.href}
+                          onClick={handleLinkClick}
+                          className={menuLinkClassName}
+                        >
+                          <span className="link-underline">{link.label}</span>
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleDemoClick}
+                          className={cn(
+                            menuLinkClassName,
+                            "w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400",
+                          )}
+                        >
+                          <span className="link-underline">{link.label}</span>
+                        </button>
+                      )}
                     </motion.li>
                   ))}
                 </ul>
                 <motion.button
                   variants={variants.row}
                   type="button"
-                  onClick={handleLoginClick}
+                  onClick={handleDemoClick}
                   className="text-menu flex h-12 items-center justify-center rounded-sm border-2 border-white uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950"
                 >
                   Login

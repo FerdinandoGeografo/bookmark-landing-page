@@ -1,6 +1,7 @@
 import { LINKS } from "@/constants/links";
 import { fadeIn } from "@/lib/motion/variants";
 import Logo from "./Logo";
+import NavLink from "./NavLink";
 import Reveal from "./Reveal";
 import SocialLinks from "./SocialLinks";
 
@@ -25,13 +26,11 @@ export default function Footer() {
           className="flex flex-col items-center gap-8 lg:flex-row lg:gap-11"
         >
           {LINKS.map((link) => (
-            <a
-              key={link}
-              href="#"
+            <NavLink
+              key={link.label}
+              link={link}
               className="text-link-lg lg:text-link link-underline text-white uppercase transition-colors duration-300 hover:text-red-400"
-            >
-              {link}
-            </a>
+            />
           ))}
         </nav>
 

@@ -120,7 +120,8 @@
 }
 
 /* A 1px line, 1px below the text, that expands across it on hover and on
-   keyboard focus. Put it on the link, or on a span inside a wider link. */
+   keyboard focus. Put it on the link, or on a span inside a wider link or
+   button. */
 @utility link-underline {
   position: relative;
 
@@ -136,13 +137,13 @@
   }
 
   &:focus-visible::after,
-  a:focus-visible > &::after {
+  :is(a, button):focus-visible > &::after {
     scale: 1;
   }
 
   @media (hover: hover) {
     &:hover::after,
-    a:hover > &::after {
+    :is(a, button):hover > &::after {
       scale: 1;
     }
   }
