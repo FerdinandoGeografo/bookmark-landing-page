@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { FEATURES } from "@/constants/features";
-import { useDirectionalSelection } from "@/hooks/useDirectionalSelection";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { createFeaturePanelVariants } from "@/lib/motion/feature-panels";
+import {
+  createFeaturePanelVariants,
+  getFeaturePanelState,
+} from "@/lib/motion/feature-panels";
 import { fadeUp, staggerChildren } from "@/lib/motion/variants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import DemoButton from "./DemoButton";
@@ -16,16 +19,14 @@ import Reveal from "./Reveal";
 // the others start at the same top and the taller ones overflow it downwards,
 // so switching tabs never moves the page.
 const FRAME = FEATURES[0].image;
-const FEATURE_IDS = FEATURES.map((feature) => feature.id);
 
 export default function FeaturesSection() {
-  // One source of truth for Base UI and the animation: the selected tab and
-  // the direction it was reached from.
-  const { selected, direction, select } = useDirectionalSelection(FEATURE_IDS);
+  // One source of truth for Base UI and the animation: the selected tab.
+  const [selected, setSelected] = useState(FEATURES[0].id);
+  const selectedIndex = FEATURES.findIndex(({ id }) => id === selected);
   const isDesktop = useMediaQuery(DESKTOP_QUERY);
   const prefersReducedMotion = usePrefersReducedMotion();
   const variants = createFeaturePanelVariants({
-    direction,
     layout: isDesktop ? "row" : "column",
     isInstant: prefersReducedMotion,
   });
@@ -45,7 +46,7 @@ export default function FeaturesSection() {
 
       <Tabs
         value={selected}
-        onValueChange={select}
+        onValueChange={setSelected}
         render={<motion.div variants={staggerChildren(0.1)} />}
       >
         <TabsList
@@ -62,7 +63,7 @@ export default function FeaturesSection() {
           variants={fadeUp()}
           className="grid *:col-start-1 *:row-start-1"
         >
-          {FEATURES.map((feature) => (
+          {FEATURES.map((feature, index) => (
             <TabsContent
               key={feature.id}
               value={feature.id}
@@ -73,7 +74,7 @@ export default function FeaturesSection() {
               <motion.div
                 variants={variants.panel}
                 initial={false}
-                animate={feature.id === selected ? "active" : "inactive"}
+                animate={getFeaturePanelState(index, selectedIndex)}
                 className="flex flex-col items-center gap-17.25 md:gap-20 lg:flex-row lg:gap-31.25"
               >
                 <ImageDecoration
