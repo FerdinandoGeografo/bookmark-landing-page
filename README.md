@@ -36,7 +36,7 @@ Users should be able to:
 - Features and Contact, in the navigation and in the footer, scroll smoothly to their sections. From the mobile menu the page scrolls once the menu has closed, and Tab continues from the section.
 - Arrow keys move between the feature tabs, Enter or Space opens one, and Tab goes on to the button of the open panel. In a row the indicator slides to the new tab and the content moves in its direction; stacked, the indicator grows under the tab and the content fades and rises. Switching tabs never changes the height of the section.
 - The FAQ keeps one answer open at a time; answers slide open and closed, and the arrow turns.
-- The newsletter validates on submit only: an empty or invalid email shows an error that screen readers announce and moves focus back to the field, and editing the field clears it. There is no backend, so a valid email opens a notice that repeats the address and explains that nothing was saved.
+- The newsletter validates on submit only: an empty or invalid email shows an error that unrolls under the field, is announced by screen readers and moves focus back to the field, and editing the field clears it. There is no backend, so a valid email opens a notice that repeats the address and explains that nothing was saved.
 - The header and the hero animate in on load. The other sections reveal once as they scroll into view, and the browser cards drop into their offsets one after another on wide screens. Keyboard focus inside a section shows it at once.
 - With reduced motion requested, elements appear in their final place without animating and section links jump instead of scrolling. The page follows the setting even when it changes while the page is open.
 - Pricing, Login, "Get it on…", "More Info" and "Add & Install Extension" open a notice explaining that the page is a demo. The social links are placeholders that lead back to the top.
@@ -106,7 +106,7 @@ The three feature illustrations have different sizes. Every tab keeps the box of
       value={feature.id}
       keepMounted
       hidden={false}
-      className="transition-[visibility] data-hidden:invisible data-hidden:delay-250"
+      className="transition-[visibility] data-hidden:invisible data-hidden:delay-250 motion-reduce:delay-0"
     >
       {/* ... */}
     </TabsContent>
@@ -114,7 +114,7 @@ The three feature illustrations have different sizes. Every tab keeps the box of
 </div>
 ```
 
-Base UI makes the previous panel `inert` as soon as the tab changes, so it leaves the tab order at once, while CSS hides it only after its content has animated out.
+Base UI makes the previous panel `inert` as soon as the tab changes, so it leaves the tab order at once, while CSS hides it only after its content has animated out, or at once with reduced motion.
 
 #### Reveals that never hide content
 
