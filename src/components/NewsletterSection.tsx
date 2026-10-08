@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
 import { motion } from "motion/react";
+import { demoDialog } from "@/lib/demo-dialog";
 import { fadeUp } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
@@ -9,9 +10,7 @@ import Reveal from "./Reveal";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function getEmailError(value: string) {
-  const email = value.trim();
-
+function getEmailError(email: string) {
   if (!email) return "Whoops, make sure to enter your email";
   if (!EMAIL_PATTERN.test(email)) return "Whoops, make sure it’s an email";
   return null;
@@ -25,9 +24,8 @@ export default function NewsletterSection() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const submitError = getEmailError(
-      String(new FormData(form).get("email") ?? ""),
-    );
+    const email = String(new FormData(form).get("email") ?? "").trim();
+    const submitError = getEmailError(email);
 
     setError(submitError);
     if (submitError) {
@@ -35,6 +33,8 @@ export default function NewsletterSection() {
       return;
     }
 
+    // There is no backend: the notice says so instead of faking a sign-up.
+    demoDialog.openWithPayload({ kind: "newsletter", email });
     form.reset();
   }
 

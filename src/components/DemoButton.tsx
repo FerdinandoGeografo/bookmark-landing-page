@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { demoDialog } from "@/lib/demo-dialog";
+import { ACTION_NOTICE, demoDialog } from "@/lib/demo-dialog";
 import { Button } from "@/ui/button";
 import { DialogTrigger } from "@/ui/dialog";
 
@@ -8,7 +8,11 @@ export default function DemoButton({
   ...props
 }: ComponentProps<typeof Button>) {
   return (
-    <DialogTrigger handle={demoDialog} render={<Button {...props} />}>
+    <DialogTrigger
+      handle={demoDialog}
+      payload={ACTION_NOTICE}
+      render={<Button {...props} />}
+    >
       {children}
     </DialogTrigger>
   );

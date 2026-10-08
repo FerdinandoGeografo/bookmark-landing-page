@@ -4,7 +4,7 @@ import { DESKTOP_QUERY } from "@/constants/breakpoints";
 import { LINKS } from "@/constants/links";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { demoDialog } from "@/lib/demo-dialog";
+import { ACTION_NOTICE, demoDialog } from "@/lib/demo-dialog";
 import { createMobileMenuVariants } from "@/lib/motion/mobile-menu";
 import { fadeIn } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils";
@@ -51,7 +51,7 @@ export default function MobileMenu() {
   function handleLoginClick() {
     closeThen(() => {
       triggerRef.current?.focus();
-      demoDialog.open(null);
+      demoDialog.openWithPayload(ACTION_NOTICE);
     });
   }
 
