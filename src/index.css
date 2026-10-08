@@ -28,9 +28,13 @@
 }
 
 @layer base {
-  /* Keeps focused elements clear of the sticky header (136px at its tallest). */
+  /* Keeps focused elements clear of the sticky header (136px at its tallest).
+     The scrollbar is thin and takes the primary blue, here and, through
+     inheritance, in the mobile menu. */
   html {
     scroll-padding-top: 8.5rem;
+    scrollbar-color: var(--color-blue-600) transparent;
+    scrollbar-width: thin;
   }
 
   @media (prefers-reduced-motion: no-preference) {
