@@ -1,7 +1,7 @@
 import { stagger, type Variants } from "motion/react";
 import { instant, leave, spring } from "./transitions";
 
-//Feature panels are "active", or hidden "before" or "after" the selected one.
+// Feature panels are "active", or hidden "before" or "after" the selected one.
 export type FeaturePanelState = "active" | "before" | "after";
 
 export function getFeaturePanelState(

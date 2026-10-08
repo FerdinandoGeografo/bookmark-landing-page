@@ -25,9 +25,8 @@ interface ImageDecorationProps {
 
 const round = (value: number) => Math.round(value * 1000) / 1000;
 
-/**
- *  Vertical ones pass `heightRatio`, as their % use the box height.
- */
+// A length clamped between the frames. Vertical ones pass `heightRatio`, as
+// their % use the box height.
 function fluid(
   mobile: number,
   desktop: number,
