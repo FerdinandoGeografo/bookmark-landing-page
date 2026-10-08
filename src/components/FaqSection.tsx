@@ -4,6 +4,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/ui/accordion";
+import { useState } from "react";
 import * as m from "motion/react-m";
 import { QUESTIONS } from "@/constants/questions";
 import { fadeUp, staggerChildren } from "@/lib/motion";
@@ -12,6 +13,9 @@ import HeadingBox from "./HeadingBox";
 import Reveal from "./Reveal";
 
 export default function FaqSection() {
+  // One source for Base UI and the animations: the values of the open items.
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
   return (
     <Reveal
       as="section"
@@ -27,6 +31,8 @@ export default function FaqSection() {
       />
 
       <Accordion
+        value={openItems}
+        onValueChange={setOpenItems}
         render={<m.div variants={staggerChildren(0.06)} />}
         className="-mt-1 md:mt-0.5 md:max-w-135"
       >
@@ -36,8 +42,10 @@ export default function FaqSection() {
             value={id}
             render={<m.div variants={fadeUp} />}
           >
-            <AccordionTrigger>{question}</AccordionTrigger>
-            <AccordionContent>
+            <AccordionTrigger open={openItems.includes(id)}>
+              {question}
+            </AccordionTrigger>
+            <AccordionContent open={openItems.includes(id)}>
               <p className="tracking-tight md:tracking-[.15px]">{answer}</p>
             </AccordionContent>
           </AccordionItem>

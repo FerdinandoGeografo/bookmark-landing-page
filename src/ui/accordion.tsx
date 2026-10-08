@@ -1,7 +1,19 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
+import { AnimatePresence, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 
+import { quickSpring } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import Icon from "@/components/Icon";
+
+// Height is not a transform, so reduced motion has to stop it explicitly.
+const HEIGHT_TRANSITION = { duration: 0.3, ease: "easeOut" } as const;
+const INSTANT = { duration: 0 } as const;
+
+interface OpenProps {
+  // Whether the item is open, from the state that controls the accordion.
+  open: boolean;
+}
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
@@ -27,10 +39,11 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
 }
 
 function AccordionTrigger({
+  open,
   className,
   children,
   ...props
-}: AccordionPrimitive.Trigger.Props) {
+}: AccordionPrimitive.Trigger.Props & OpenProps) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -42,35 +55,62 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <Icon
-          name="arrow"
-          className="mt-1.75 h-3 w-4.5 shrink-0 text-blue-600 group-aria-expanded:rotate-180 group-aria-expanded:text-red-400 md:mt-2 md:mr-5.75"
-        />
+        <m.span
+          initial={false}
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={quickSpring}
+          className="mt-1.75 flex shrink-0 md:mt-2 md:mr-5.75"
+        >
+          <Icon
+            name="arrow"
+            className="h-3 w-4.5 text-blue-600 group-aria-expanded:text-red-400"
+          />
+        </m.span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
 }
 
+// The panel stays mounted while it closes, then leaves the DOM. Base UI would
+// hide a closing panel at once, so `hidden` is left to the animation.
 function AccordionContent({
+  open,
   className,
   children,
   ...props
-}: AccordionPrimitive.Panel.Props) {
+}: AccordionPrimitive.Panel.Props & OpenProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const transition = shouldReduceMotion ? INSTANT : HEIGHT_TRANSITION;
+
   return (
-    <AccordionPrimitive.Panel
-      data-slot="accordion-content"
-      className="data-open:animate-accordion-down data-closed:animate-accordion-up overflow-hidden text-sm leading-7.5 md:text-base md:leading-9"
-      {...props}
-    >
-      <div
-        className={cn(
-          "pt-3.5 pb-7 text-blue-950/75 md:pt-4.75 md:pb-7.25",
-          className,
-        )}
-      >
-        {children}
-      </div>
-    </AccordionPrimitive.Panel>
+    <AnimatePresence initial={false}>
+      {open && (
+        <AccordionPrimitive.Panel
+          data-slot="accordion-content"
+          keepMounted
+          hidden={false}
+          render={
+            <m.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={transition}
+            />
+          }
+          className="overflow-hidden text-sm leading-7.5 md:text-base md:leading-9"
+          {...props}
+        >
+          <div
+            className={cn(
+              "pt-3.5 pb-7 text-blue-950/75 md:pt-4.75 md:pb-7.25",
+              className,
+            )}
+          >
+            {children}
+          </div>
+        </AccordionPrimitive.Panel>
+      )}
+    </AnimatePresence>
   );
 }
 
