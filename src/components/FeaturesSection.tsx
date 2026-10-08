@@ -45,7 +45,10 @@ export default function FeaturesSection() {
         onValueChange={select}
         render={<motion.div variants={staggerChildren({ step: 0.1 })} />}
       >
-        <TabsList render={<motion.div variants={fadeUp()} />}>
+        <TabsList
+          aria-labelledby="features-title"
+          render={<motion.div variants={fadeUp()} />}
+        >
           {FEATURES.map((feature) => (
             <TabsTrigger key={feature.id} value={feature.id}>
               {feature.label}
