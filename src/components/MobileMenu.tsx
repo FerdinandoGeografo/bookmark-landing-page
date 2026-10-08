@@ -78,8 +78,6 @@ export default function MobileMenu() {
         <Icon name="menu" className="h-3.75 w-4.5" />
       </DialogTrigger>
 
-      {/* The popup is animated by Motion: AnimatePresence keeps the portal
-          mounted (keepMounted) until the exit animation has finished. */}
       <AnimatePresence>
         {open && (
           <DialogPortal keepMounted>
@@ -122,7 +120,7 @@ export default function MobileMenu() {
                         onClick={handleLinkClick}
                         className="text-menu block pt-5 pb-5.25 text-center uppercase transition-colors duration-300 hover:text-red-400"
                       >
-                        {link}
+                        <span className="link-underline">{link}</span>
                       </a>
                     </motion.li>
                   ))}

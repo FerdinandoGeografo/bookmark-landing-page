@@ -12,7 +12,7 @@ export default function Navigation() {
           <motion.li key={link} variants={fadeDown()}>
             <a
               href="#"
-              className="text-link text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
+              className="text-link link-underline text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>

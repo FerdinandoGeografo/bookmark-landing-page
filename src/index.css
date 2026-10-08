@@ -123,3 +123,39 @@
 @utility max-w-fluid-* {
   max-width: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
 }
+
+/* A 1px line, 1px below the text, that expands across it on hover and on
+   keyboard focus. Put it on the link, or on a span inside a wider link. */
+@utility link-underline {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background-color: currentColor;
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 300ms ease-out;
+  }
+
+  &:focus-visible::after,
+  a:focus-visible > &::after {
+    scale: 1;
+  }
+
+  @media (hover: hover) {
+    &:hover::after,
+    a:hover > &::after {
+      scale: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
+  }
+}
