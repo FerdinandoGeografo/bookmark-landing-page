@@ -1,5 +1,5 @@
 export type Browser = {
-  logo: string;
+  logo: { src: string; width: number; height: number };
   name: string;
   minVersion: number;
 };

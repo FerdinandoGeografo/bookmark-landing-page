@@ -22,6 +22,8 @@ export default function HeroSection() {
       >
         <img
           src="/images/illustration-hero.svg"
+          width={578}
+          height={385}
           alt=""
           className="lg:max-w-fluid-578 drop-shadow-2xl drop-shadow-blue-800/20"
         />
