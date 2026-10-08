@@ -126,22 +126,39 @@ The mobile menu reuses the same dialog primitive. Its Login button closes the me
 
 #### Animations that end on the design
 
-Every animation moves only opacity and transforms, or the height of an answer that changes anyway, so once it ends the page is the one of the design. Sections reveal through a `Reveal` wrapper: its children play their variants once, when the group enters the viewport, and a focus event inside it shows the final state at once, so keyboard users never land on an invisible element:
+Every animation moves only opacity and transforms, or the height of an answer that changes anyway, so once it ends the page is the one of the design. The pieces are split by role:
+
+- `src/lib/motion/transitions.ts` holds the shared timings (`spring`, `quickSpring`, `leave`, `resize`, `instant`...).
+- `src/lib/motion/variants.ts` holds configurable entrance presets with two states, `hidden` and `visible`, such as `fadeUp(distance)`, `slideIn(x)` or `enterFrom({ y: -40 })`.
+- Choreographies with more parts are factories with options, such as `createFeaturePanelVariants({ direction, layout })` for the tab switch.
+- Hooks hold the reusable behaviour: `useReveal`, `useReducedTransition`, `useDirectionalSelection`, `useMediaQuery` and `useHasScrolled`.
+
+A section becomes a reveal group by spreading `useReveal()` on a `motion` element, or through the `Reveal` component built on it. It plays once, when the group enters the viewport, and a focus event inside it shows the final state at once, so keyboard users never land on an invisible element:
 
 ```tsx
-function reveal() {
-  if (isRevealedRef.current) return;
-  isRevealedRef.current = true;
-  controls.start("visible");
-}
-
-function show() {
-  isRevealedRef.current = true;
-  controls.start("visible", { duration: 0 });
-}
+// Simplified from FaqSection: the heading and the button rise in turn.
+<Reveal as="section" id="faq">
+  <HeadingBox title="Frequently Asked Questions" description="…" />
+  <motion.div variants={fadeUp()}>
+    <DemoButton>More Info</DemoButton>
+  </motion.div>
+</Reveal>
 ```
 
-The browser cards keep their 0/40/80px offsets on the list items, while Motion moves the cards inside them, so the two transforms never share an element. The feature panels stay mounted in their grid cell: Base UI makes an inactive panel inert at once, and CSS hides it with a short `visibility` delay, after its content has animated out. The animation features load in a separate chunk through `LazyMotion`, and `MotionConfig reducedMotion="user"` plus `useReducedMotion` turn movement, delays and fades off when requested.
+The browser cards keep their 0/40/80px offsets on the list items, while Motion moves the cards inside them, so the two transforms never share an element. The feature panels stay mounted in their grid cell: Base UI makes an inactive panel inert at once, and CSS hides it with a short `visibility` delay, after its content has animated out. `MotionConfig reducedMotion="user"` turns transforms off for people who ask for reduced motion, and `useReducedMotion` skips fades and delays too.
+
+#### Design measures as tokens
+
+Text styles measured in the frames are Tailwind text presets that set size, line height and letter spacing together, such as `text-link` or `text-eyebrow`, and `tailwind-merge` is told they are font sizes. Lengths that shrink below the 1440px frame use small utilities instead of inline `min()` expressions: `lg:pl-fluid-165` is 165px at 1440px and scales down with the viewport.
+
+```css
+@utility pl-fluid-* {
+  padding-left: min(
+    calc(--value(integer) * 100vw / 1440),
+    calc(--value(integer) * 1px)
+  );
+}
+```
 
 #### Small details
 
@@ -159,7 +176,7 @@ The browser cards keep their 0/40/80px offsets on the list items, while Motion m
 - [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore) - Subscribing to the scroll position.
 - [Motion for React](https://motion.dev/docs/react) - Variants, `whileInView` triggers, `AnimatePresence` and layout animations.
 - [Motion and Base UI](https://motion.dev/docs/base-ui) - Animating Base UI parts through their `render` prop, exits included.
-- [Reduce bundle size](https://motion.dev/docs/react-reduce-bundle-size) - `LazyMotion` with features loaded on demand.
+- [Tailwind CSS functional utilities](https://tailwindcss.com/docs/adding-custom-styles#functional-utilities) - The `--value()` syntax behind the fluid utilities.
 - [ARIA Authoring Practices: Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) and [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) - The keyboard patterns of the features and the FAQ.
 
 ### AI Collaboration
