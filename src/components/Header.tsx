@@ -19,8 +19,6 @@ export default function Header() {
         hasScrolled && "shadow-lg shadow-blue-950/10",
       )}
     >
-      {/* Entrance: the logo slides in from the left, then the navigation
-          items (Navigation, MobileMenu) drop in one after another. */}
       <motion.div
         variants={staggerChildren({ step: 0.06 })}
         {...reveal}

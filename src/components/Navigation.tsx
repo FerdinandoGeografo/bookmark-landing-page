@@ -3,7 +3,6 @@ import { LINKS } from "@/constants/links";
 import { fadeDown } from "@/lib/motion/variants";
 import DemoButton from "./DemoButton";
 
-// Each item drops in with the header entrance (see Header).
 export default function Navigation() {
   return (
     <nav aria-label="Main" className="hidden lg:flex">

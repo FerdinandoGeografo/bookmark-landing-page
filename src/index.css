@@ -107,11 +107,6 @@
   --shadow-2xl: 0 30px 40px 0;
 }
 
-/*
- * Fluid design sizes: N px measured in the 1440px desktop frame. Below that
- * width they shrink with the viewport, from 1440px on they stay at N px.
- * For example, lg:pl-fluid-165 is 165px at 1440px and about 117px at 1024px.
- */
 @utility pl-fluid-* {
   padding-left: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
 }

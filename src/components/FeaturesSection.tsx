@@ -52,9 +52,6 @@ export default function FeaturesSection() {
             </TabsTrigger>
           ))}
         </TabsList>
-        {/* All panels share one grid cell, so the section always keeps the
-            same height. Inactive panels stay mounted and inert (Base UI) and
-            become invisible once their content has animated out. */}
         <motion.div
           variants={fadeUp()}
           className="grid *:col-start-1 *:row-start-1"

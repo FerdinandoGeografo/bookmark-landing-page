@@ -48,7 +48,6 @@ export default function DownloadSection() {
               style={cardOffset(index)}
               className="lg:translate-y-(--card-offset)"
             >
-              {/* Drops into the offset of its list item. */}
               <motion.div variants={enterFrom({ y: -40 })}>
                 <BrowserItem browser={browser} />
               </motion.div>

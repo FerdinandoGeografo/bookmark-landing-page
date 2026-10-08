@@ -12,8 +12,6 @@ const buttonVariants = cva(
         accent:
           "border-red-400 bg-red-400 text-white hover:bg-white hover:text-red-400 focus-visible:ring-red-400",
       },
-      // Each size sets its typography too: the small one is the navigation
-      // button (Login), set like the links next to it.
       size: {
         default: "h-12 px-3.5 text-xs leading-7 tracking-wide md:px-5.5",
         sm: "h-10 px-7.5 text-link uppercase",

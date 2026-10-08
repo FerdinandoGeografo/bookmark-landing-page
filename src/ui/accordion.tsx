@@ -51,7 +51,6 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        {/* The arrow turns with a spring; its colour changes in CSS. */}
         <motion.span
           initial={false}
           animate={{ rotate: open ? 180 : 0 }}
