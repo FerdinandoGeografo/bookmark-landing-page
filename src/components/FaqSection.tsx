@@ -48,7 +48,7 @@ export default function FaqSection() {
               {question}
             </AccordionTrigger>
             <AccordionContent open={openItems.includes(id)}>
-              <p className="tracking-tight md:tracking-[.15px]">{answer}</p>
+              <p>{answer}</p>
             </AccordionContent>
           </AccordionItem>
         ))}

@@ -94,7 +94,7 @@ function AccordionContent({
               transition={transition}
             />
           }
-          className="overflow-hidden text-sm leading-7.5 md:text-base md:leading-9"
+          className="text-answer md:text-answer-lg overflow-hidden"
           {...props}
         >
           <div

@@ -8,10 +8,14 @@ const PILL_SIZE = {
   desktop: { width: 1000, height: 352 },
 };
 
-// Image width and pill offsets (px) measured in one design frame.
+// Where the pill sits in one design frame, in px, relative to the box of the
+// illustration.
 interface PillPlacement {
+  // Width of the box in that frame.
   image: number;
+  // From the top of the box to the top of the pill.
   top: number;
+  // From the box edge opposite to `bleed` to the rounded end of the pill.
   inset: number;
 }
 
@@ -29,8 +33,16 @@ interface ImageDecorationProps {
 
 const round = (value: number) => Math.round(value * 1000) / 1000;
 
-// Linear between the two frames as the box width changes, clamped to them.
-// `%` resolves against the box width, or its height when `heightRatio` is set.
+/**
+ * A CSS length that goes linearly from its `mobile` value to its `desktop`
+ * value while the box grows from its mobile width to its desktop width, and
+ * stays at those values outside that range. For example, the hero pill is
+ * 577px wide next to a 311px illustration and 1000px wide next to a 578px one.
+ *
+ * Percentages refer to the box width. Vertical lengths (`top`, `height`)
+ * resolve percentages against the box height instead, so they pass
+ * `heightRatio`, the width / height ratio of the box.
+ */
 function fluid(
   mobile: number,
   desktop: number,

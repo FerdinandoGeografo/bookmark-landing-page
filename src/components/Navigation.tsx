@@ -12,18 +12,14 @@ export default function Navigation() {
           <motion.li key={link} variants={fadeDown()}>
             <a
               href="#"
-              className="text-[13px] leading-4.25 tracking-[.125em] text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
+              className="text-link text-blue-950 uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>
           </motion.li>
         ))}
         <motion.li variants={fadeDown()}>
-          <DemoButton
-            variant="accent"
-            size="sm"
-            className="text-[13px] leading-4.25 tracking-[.125em] uppercase"
-          >
+          <DemoButton variant="accent" size="sm">
             Login
           </DemoButton>
         </motion.li>

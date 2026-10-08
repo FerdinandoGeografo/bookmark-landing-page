@@ -64,11 +64,40 @@
   --color-grey-300: #5B6074;
   --color-grey-500: #9194a2;
 
-  --text-2xs: .75rem;
   --text-xs: .875rem;
   --text-sm: .9375rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2rem;
+
+  /* Text presets measured in the design frames: each sets the font size,
+     the line height and the letter spacing of one kind of text. */
+  --text-link: .8125rem; /* 13px: navigation, Login, desktop footer */
+  --text-link--line-height: 1.0625rem;
+  --text-link--letter-spacing: .125em;
+  --text-link-lg: .9375rem; /* 15px: stacked footer links */
+  --text-link-lg--line-height: 1.0625rem;
+  --text-link-lg--letter-spacing: .12em;
+  --text-menu: 1.25rem; /* 20px: mobile menu */
+  --text-menu--line-height: 1.5rem;
+  --text-menu--letter-spacing: 2.3px;
+  --text-card-title: 1.25rem; /* 20px: browser cards */
+  --text-card-title--line-height: 1.5rem;
+  --text-card-title--letter-spacing: .25px;
+  --text-answer: .9375rem; /* 15px: FAQ answers, mobile */
+  --text-answer--line-height: 1.875rem;
+  --text-answer--letter-spacing: -.025em;
+  --text-answer-lg: 1rem; /* 16px: FAQ answers, from md */
+  --text-answer-lg--line-height: 2.25rem;
+  --text-answer-lg--letter-spacing: .15px;
+  --text-eyebrow: .75rem; /* 12px: "35,000+ already joined", mobile */
+  --text-eyebrow--line-height: 2.5rem;
+  --text-eyebrow--letter-spacing: 4.6px;
+  --text-eyebrow-lg: .8125rem; /* 13px: the same, from md */
+  --text-eyebrow-lg--line-height: 2.5rem;
+  --text-eyebrow-lg--letter-spacing: 5px;
+  --text-error: .625rem; /* 10px: newsletter error */
+  --text-error--line-height: 1rem;
+  --text-error--letter-spacing: .25px;
 
   --radius-sm: 5px;
   --radius-lg: 15px;
@@ -76,4 +105,21 @@
   --shadow-md: 0 8px 8px -4px;
   --shadow-xl: 0 10px 20px -5px;
   --shadow-2xl: 0 30px 40px 0;
+}
+
+/*
+ * Fluid design sizes: N px measured in the 1440px desktop frame. Below that
+ * width they shrink with the viewport, from 1440px on they stay at N px.
+ * For example, lg:pl-fluid-165 is 165px at 1440px and about 117px at 1024px.
+ */
+@utility pl-fluid-* {
+  padding-left: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
+}
+
+@utility pr-fluid-* {
+  padding-right: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
+}
+
+@utility max-w-fluid-* {
+  max-width: min(calc(--value(integer) * 100vw / 1440), calc(--value(integer) * 1px));
 }

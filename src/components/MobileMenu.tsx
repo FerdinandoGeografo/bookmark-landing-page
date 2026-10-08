@@ -120,7 +120,7 @@ export default function MobileMenu() {
                       <a
                         href="#"
                         onClick={handleLinkClick}
-                        className="block pt-5 pb-5.25 text-center text-xl leading-6 tracking-[2.3px] uppercase transition-colors duration-300 hover:text-red-400"
+                        className="text-menu block pt-5 pb-5.25 text-center uppercase transition-colors duration-300 hover:text-red-400"
                       >
                         {link}
                       </a>
@@ -131,7 +131,7 @@ export default function MobileMenu() {
                   variants={variants.row}
                   type="button"
                   onClick={handleLoginClick}
-                  className="flex h-12 items-center justify-center rounded-sm border-2 border-white text-xl tracking-[2.3px] uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950"
+                  className="text-menu flex h-12 items-center justify-center rounded-sm border-2 border-white uppercase transition-colors duration-300 hover:bg-white hover:text-blue-950"
                 >
                   Login
                 </motion.button>

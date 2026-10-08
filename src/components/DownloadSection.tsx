@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import { BROWSERS } from "@/constants/browsers";
 import { DESKTOP_QUERY } from "@/constants/breakpoints";
@@ -7,9 +8,15 @@ import HeadingBox from "./HeadingBox";
 import BrowserItem from "./BrowserItem";
 import Reveal from "./Reveal";
 
-// The offsets live on the list items (CSS); only the cards inside them move.
 const LIST_CLASS_NAME =
-  "flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-9 lg:[&>*:nth-child(2)]:translate-y-10 lg:[&>*:nth-child(3)]:translate-y-20";
+  "flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-9";
+
+// In a row each card sits 40px lower than the previous one (0, 40, 80px).
+// The offset lives on the list item, so the card inside it stays free for
+// its entrance animation.
+function cardOffset(index: number) {
+  return { "--card-offset": `${index * 40}px` } as CSSProperties;
+}
 
 export default function DownloadSection() {
   // In a row the cards drop in one after another; stacked, each card
@@ -35,8 +42,12 @@ export default function DownloadSection() {
           variants={staggerChildren({ step: 0.12 })}
           className={LIST_CLASS_NAME}
         >
-          {BROWSERS.map((browser) => (
-            <li key={browser.name}>
+          {BROWSERS.map((browser, index) => (
+            <li
+              key={browser.name}
+              style={cardOffset(index)}
+              className="lg:translate-y-(--card-offset)"
+            >
               {/* Drops into the offset of its list item. */}
               <motion.div variants={enterFrom({ y: -40 })}>
                 <BrowserItem browser={browser} />

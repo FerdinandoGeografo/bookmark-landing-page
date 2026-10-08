@@ -76,9 +76,9 @@ export default function FeaturesSection() {
                 <ImageDecoration
                   bleed="left"
                   aspectRatio={FRAME.width / FRAME.height}
-                  mobile={{ image: 311, top: 34.875, inset: 34.875 }}
-                  desktop={{ image: FRAME.width, top: 83, inset: 64.32 }}
-                  className="min-h-0 w-full max-w-134 items-start lg:max-w-[min(100vw*536/1440,536px)]"
+                  mobile={{ image: 311, top: 35, inset: 35 }}
+                  desktop={{ image: FRAME.width, top: 83, inset: 64 }}
+                  className="lg:max-w-fluid-536 min-h-0 w-full max-w-134 items-start"
                 >
                   <motion.img
                     variants={variants.image}

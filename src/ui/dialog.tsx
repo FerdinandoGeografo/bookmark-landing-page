@@ -80,7 +80,7 @@ function DialogContent({
               />
             }
             className={cn(
-              "fixed top-1/2 left-1/2 flex w-[calc(100%-4rem)] max-w-110 -translate-1/2 flex-col items-center gap-4 rounded-lg bg-white px-6 pt-10 pb-6 text-center shadow-xl shadow-blue-950/20 md:px-10",
+              "fixed inset-x-8 top-1/2 mx-auto flex max-w-110 -translate-y-1/2 flex-col items-center gap-4 rounded-lg bg-white px-6 pt-10 pb-6 text-center shadow-xl shadow-blue-950/20 md:px-10",
               className,
             )}
             {...props}

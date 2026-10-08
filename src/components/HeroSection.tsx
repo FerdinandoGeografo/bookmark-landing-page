@@ -10,20 +10,20 @@ export default function HeroSection() {
   return (
     <Reveal
       as="section"
-      className="mt-10 flex flex-col gap-24 px-8 lg:mt-16.75 lg:flex-row lg:items-end lg:justify-center lg:gap-16.25 lg:pr-[min(100%*91/1440,91px)] lg:pl-[min(100%*165/1440,165px)]"
+      className="lg:pr-fluid-91 lg:pl-fluid-165 mt-10 flex flex-col gap-24 px-8 lg:mt-16.75 lg:flex-row lg:items-end lg:justify-center lg:gap-16.25"
     >
       <ImageDecoration
         bleed="right"
         aspectRatio={578 / 385}
-        mobile={{ image: 311, top: 51.75, inset: 39 }}
-        desktop={{ image: 578, top: 130.9, inset: 154.326 }}
+        mobile={{ image: 311, top: 52, inset: 39 }}
+        desktop={{ image: 578, top: 131, inset: 154 }}
         variants={slideIn(48)}
         className="md:max-lg:self-center lg:order-1"
       >
         <img
           src="/images/illustration-hero.svg"
           alt=""
-          className="drop-shadow-2xl drop-shadow-blue-800/20 lg:max-w-[calc(100vw*578/1440)]"
+          className="lg:max-w-fluid-578 drop-shadow-2xl drop-shadow-blue-800/20"
         />
       </ImageDecoration>
 

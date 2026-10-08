@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="flex bg-blue-950">
       <Reveal
         variants={fadeIn()}
-        className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-[31.5px]"
+        className="mx-auto flex max-w-360 flex-1 flex-col items-center gap-9.75 pt-10 pb-10.75 lg:h-22 lg:flex-row lg:gap-16.25 lg:px-41.25 lg:py-0"
       >
         <a
           href="#"
@@ -28,7 +28,7 @@ export default function Footer() {
             <a
               key={link}
               href="#"
-              className="text-[15px] leading-4.25 tracking-[.12em] text-white uppercase transition-colors duration-300 hover:text-red-400 lg:text-[13px] lg:tracking-[.125em]"
+              className="text-link-lg lg:text-link text-white uppercase transition-colors duration-300 hover:text-red-400"
             >
               {link}
             </a>
