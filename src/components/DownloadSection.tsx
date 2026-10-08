@@ -8,14 +8,10 @@ import HeadingBox from "./HeadingBox";
 import BrowserItem from "./BrowserItem";
 import Reveal from "./Reveal";
 
-// In a row each card sits 40px below the previous one. The offset lives on
-// the list item, leaving the card inside free for its entrance.
 function cardOffset(index: number) {
   return { "--card-offset": `${index * 40}px` } satisfies CSSProperties;
 }
 
-// Each card reveals on its own: dropping in turn in a row, rising stacked. The
-// list keeps its elements across the breakpoint, and with them the focus.
 function cardEntrance(isDesktop: boolean, index: number) {
   return isDesktop
     ? enterFrom({ y: -40, transition: { ...spring, delay: index * 0.12 } })

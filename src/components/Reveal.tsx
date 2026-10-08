@@ -10,7 +10,6 @@ interface RevealProps {
   id?: string;
   "aria-labelledby"?: string;
   className?: string;
-  /** The group's own variants. By default its children enter in turn. */
   variants?: Variants;
 }
 

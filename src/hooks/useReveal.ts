@@ -11,7 +11,6 @@ export function useReveal() {
   const controls = useAnimationControls();
   const isRevealedRef = useRef(false);
 
-  // Motion calls onViewportEnter again whenever the element comes back.
   function reveal() {
     if (isRevealedRef.current) return;
     isRevealedRef.current = true;

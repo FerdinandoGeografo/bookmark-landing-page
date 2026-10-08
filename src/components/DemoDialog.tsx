@@ -34,8 +34,6 @@ function NoticeText({ notice }: { notice: DemoNotice }) {
   );
 }
 
-// One dialog for every demo notice: the payload picks the text and stays set
-// while the notice animates out.
 export default function DemoDialog() {
   const [open, setOpen] = useState(false);
 

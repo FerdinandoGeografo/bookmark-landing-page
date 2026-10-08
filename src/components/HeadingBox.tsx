@@ -9,7 +9,6 @@ interface HeadingBoxProps {
   titleClassName?: string;
 }
 
-// Rises into place when the section around it is revealed (see Reveal).
 export default function HeadingBox({
   title,
   description,

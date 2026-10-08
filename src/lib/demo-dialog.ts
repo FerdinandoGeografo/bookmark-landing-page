@@ -7,5 +7,4 @@ export type DemoNotice =
 
 export const ACTION_NOTICE: DemoNotice = { kind: "action" };
 
-// Connects every placeholder action on the page to the single demo notice.
 export const demoDialog = Dialog.createHandle<DemoNotice>();
