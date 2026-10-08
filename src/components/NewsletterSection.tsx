@@ -101,7 +101,7 @@ export default function NewsletterSection() {
             aria-live="polite"
             className={cn(
               error &&
-                "text-error rounded-b-sm bg-red-400 px-2.5 pt-1 pb-px text-left font-medium italic",
+                "text-error rounded-b-sm bg-red-400 px-2.5 pt-0.5 pb-1 text-left font-medium italic",
             )}
           >
             {error}
